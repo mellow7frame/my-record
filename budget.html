@@ -558,6 +558,16 @@
 
   function loadForm() {
     const d = allData[mk()] || {};
+    // 빈 달이면 요약 초기화
+    if (!allData[mk()]) {
+      document.getElementById('s-income').textContent = '-';
+      document.getElementById('s-expense').textContent = '-';
+      document.getElementById('s-remain').textContent = '-';
+      document.getElementById('t-income').textContent = '0';
+      document.getElementById('t-a').textContent = '0';
+      document.getElementById('t-b').textContent = '0';
+      document.getElementById('t-card').textContent = '0';
+    }
     const DEFAULTS = {e_food:1000000,e_wolse:630000,e_ins:365315,e_fam:100000,e_med:100000,e_ins1:141583,e_ins2:27669,e_silbi:86533,e_samsung:12600};
     FIELDS.forEach(f => { 
       const el = document.getElementById(f); 
