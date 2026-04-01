@@ -558,7 +558,13 @@
 
   function loadForm() {
     const d = allData[mk()] || {};
-    FIELDS.forEach(f => { const el = document.getElementById(f); if(el) el.value = d[f.replace(/-/g,'_')] || ''; });
+    FIELDS.forEach(f => { 
+      const el = document.getElementById(f); 
+      if(el) { 
+        const val = d[f.replace(/-/g,'_')];
+        el.value = val ? parseInt(val).toLocaleString('ko-KR') : '';
+      } 
+    });
     MEMO_FIELDS.forEach(f => { const el = document.getElementById(f); if(el) el.value = d[f.replace(/-/g,'_')] || ''; });
     extraInc = d.extraInc || [];
     renderExtraInc();
@@ -575,7 +581,7 @@
 
   window.saveMonth = async () => {
     const data = { uid: currentUser.uid, monthKey: mk(), year: curYear, month: curMonth };
-    FIELDS.forEach(f => { data[f.replace(/-/g,'_')] = parseInt(document.getElementById(f)?.value||'0')||0; });
+    FIELDS.forEach(f => { data[f.replace(/-/g,'_')] = parseInt((document.getElementById(f)?.value||'0').replace(/,/g,''))||0; });
     MEMO_FIELDS.forEach(f => { data[f.replace(/-/g,'_')] = document.getElementById(f)?.value||''; });
 
     const extraIncValues = {}, extraIncMemos = {};
