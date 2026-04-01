@@ -160,14 +160,14 @@
       <div class="row">
         <div class="row-top">
           <div class="row-name">가게 소득</div>
-          <div class="row-inputs"><input class="amt" type="number" id="i-shop" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="i-shop" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="i-shop-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">월세 소득</div>
-          <div class="row-inputs"><input class="amt" type="number" id="i-rent" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="i-rent" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="i-rent-m" placeholder="메모">
       </div>
@@ -184,14 +184,14 @@
       <div class="row">
         <div class="row-top">
           <div class="row-name">식생활비 </div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-food" value="1000000" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-food" value="1,000,000" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-food-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">월세</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-wolse" value="630000" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-wolse" value="630,000" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-wolse-m" placeholder="메모">
       </div>
@@ -204,70 +204,70 @@
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>핸드폰 (엄마)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ph1" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-ph1" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-ph1-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>핸드폰 (재원)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ph2" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-ph2" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-ph2-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>핸드폰 (재민)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ph3" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-ph3" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-ph3-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>TV인터넷</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-tv" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-tv" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-tv-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>넷플릭스</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-nf" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-nf" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-nf-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>도시가스</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-gas" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-gas" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-gas-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>관리비</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-mgmt" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-mgmt" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-mgmt-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>교육비 (눈높이)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-edu" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-edu" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-edu-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>교통비</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-trans" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-trans" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-trans-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name"><span class="card-badge">카드</span>비고정 지출</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-var1" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-var1" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
       </div>
       <div style="margin-top:8px;">
@@ -278,21 +278,21 @@
       <div class="row">
         <div class="row-top">
           <div class="row-name">보험료</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ins" value="365315" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-ins" value="365,315" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-ins-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">가족계</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-fam" value="100000" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-fam" value="100,000" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-fam-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">병원·문화비</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-med" value="100000" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-med" value="100,000" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-med-m" placeholder="메모">
       </div>
@@ -307,28 +307,28 @@
       <div class="row">
         <div class="row-top">
           <div class="row-name">대출상환 (아파트)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-loan1" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-loan1" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-loan1-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">대출상환 (자동차)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-loan2" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-loan2" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-loan2-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">정수기</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-water" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-water" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-water-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">핸드폰 (아빠)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ph0" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-ph0" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-ph0-m" placeholder="메모">
       </div>
@@ -336,28 +336,28 @@
       <div class="row">
         <div class="row-top">
           <div class="row-name">보험 (국민연금/국민카드) </div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ins1" value="141583" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-ins1" value="141,583" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-ins1-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">보험 (건보료/삼성카드) </div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ins2" value="27669" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-ins2" value="27,669" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-ins2-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">실비 (이체)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-silbi" value="86533" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-silbi" value="86,533" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-silbi-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">삼성화재 (이체)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-samsung" value="12600" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-samsung" value="12,600" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-samsung-m" placeholder="메모">
       </div>
@@ -365,7 +365,7 @@
       <div class="row">
         <div class="row-top">
           <div class="row-name">비고정 지출 (현대카드)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-var2" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-var2" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
       </div>
       <div style="margin-top:8px;">
@@ -450,7 +450,12 @@
   const B_FIELDS = ['e-loan1','e-loan2','e-water','e-ph0','e-ins1','e-ins2','e-silbi','e-samsung','e-var2'];
 
   function fmt(n) { return Math.round(n||0).toLocaleString('ko-KR'); }
-  function v(id) { return parseInt(document.getElementById(id)?.value||'0')||0; }
+  function v(id) { return parseInt((document.getElementById(id)?.value||'0').replace(/,/g,''))||0; }
+  window.fmtAmt = (el) => {
+    const raw = el.value.replace(/,/g,'').replace(/[^0-9]/g,'');
+    if (raw === '') { el.value = ''; return; }
+    el.value = parseInt(raw).toLocaleString('ko-KR');
+  };
   function mk(y,m) { y=y||curYear; m=m||curMonth; return `${y}-${String(m).padStart(2,'0')}`; }
 
   function showToast(msg) {
@@ -493,7 +498,7 @@
             <button onclick="extraInc=extraInc.filter(i=>i.id!==${item.id});renderExtraInc();calc();" 
               style="background:none;border:none;color:var(--border);cursor:pointer;font-size:15px;">×</button>
           </div>
-          <div class="row-inputs"><input class="amt" type="number" id="i-extra-${item.id}" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="i-extra-${item.id}" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="i-extra-${item.id}-m" placeholder="메모">
       </div>
