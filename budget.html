@@ -578,7 +578,7 @@
         if(mel) mel.value = d.extraIncMemos?.[item.id] || '';
       });
     }
-    calc();
+    setTimeout(() => calc(), 100);
   }
 
   window.saveMonth = async () => {
