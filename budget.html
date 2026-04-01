@@ -66,7 +66,7 @@
   .amt { background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 6px 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 13px; color: var(--text); width: 110px; text-align: right; outline: none; }
   .amt:focus { border-color: var(--accent); }
   .won { font-size: 11px; color: var(--text2); }
-  .memo-inline { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 5px 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 12px; color: var(--text); outline: none; margin-top: 5px; }
+  .memo-inline { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 6px 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 12px; color: var(--text); outline: none; margin-top: 5px; max-width: 130px; }
   .memo-inline:focus { border-color: var(--accent); }
   .memo-inline::placeholder { color: var(--text2); }
 
@@ -183,15 +183,15 @@
       </div>
       <div class="row">
         <div class="row-top">
-          <div class="row-name">식생활비 <span class="fixed-val">기본 1,000,000</span></div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-food" placeholder="1000000" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-name">식생활비 </div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-food" value="1000000" oninput="calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-food-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">월세</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-wolse" placeholder="630000" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-wolse" value="630000" oninput="calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-wolse-m" placeholder="메모">
       </div>
@@ -274,6 +274,28 @@
         <div class="memo-label">비고정 지출 내역 (카드)</div>
         <textarea class="memo-area" id="e-var1-m" placeholder="카드 비고정 지출 내용을 적어요"></textarea>
       </div>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">보험료</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ins" value="365315" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-ins-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">가족계</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-fam" value="100000" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-fam-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">병원·문화비</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-med" value="100000" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-med-m" placeholder="메모">
+      </div>
     </div>
 
     <!-- 지출B -->
@@ -281,27 +303,6 @@
       <div class="sec-head">
         <div class="sec-title">🏦 지출합 (B)</div>
         <div class="sec-total">합계 <b id="t-b">0</b>원</div>
-      </div>
-      <div class="row">
-        <div class="row-top">
-          <div class="row-name">보험료 <span class="fixed-val">365,315</span></div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ins" placeholder="365315" oninput="calc()"><span class="won">원</span></div>
-        </div>
-        <input class="memo-inline" id="e-ins-m" placeholder="메모">
-      </div>
-      <div class="row">
-        <div class="row-top">
-          <div class="row-name">가족계</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-fam" placeholder="100000" oninput="calc()"><span class="won">원</span></div>
-        </div>
-        <input class="memo-inline" id="e-fam-m" placeholder="메모">
-      </div>
-      <div class="row">
-        <div class="row-top">
-          <div class="row-name">병원·문화비</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-med" placeholder="100000" oninput="calc()"><span class="won">원</span></div>
-        </div>
-        <input class="memo-inline" id="e-med-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
@@ -334,29 +335,29 @@
       <div class="divider"></div>
       <div class="row">
         <div class="row-top">
-          <div class="row-name">보험 (국민연금/국민카드) <span class="fixed-val">141,583</span></div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ins1" placeholder="141583" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-name">보험 (국민연금/국민카드) </div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ins1" value="141583" oninput="calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-ins1-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
-          <div class="row-name">보험 (건보료/삼성카드) <span class="fixed-val">27,669</span></div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-ins2" placeholder="27669" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-name">보험 (건보료/삼성카드) </div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ins2" value="27669" oninput="calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-ins2-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">실비 (이체)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-silbi" placeholder="86533" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-silbi" value="86533" oninput="calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-silbi-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
           <div class="row-name">삼성화재 (이체)</div>
-          <div class="row-inputs"><input class="amt" type="number" id="e-samsung" placeholder="12600" oninput="calc()"><span class="won">원</span></div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-samsung" value="12600" oninput="calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-samsung-m" placeholder="메모">
       </div>
@@ -445,8 +446,8 @@
     'e-ins1-m','e-ins2-m','e-silbi-m','e-samsung-m','e-var2-m','m-month'
   ];
   const CARD_FIELDS = ['e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1'];
-  const A_FIELDS = ['e-food','e-wolse','e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1'];
-  const B_FIELDS = ['e-ins','e-fam','e-med','e-loan1','e-loan2','e-water','e-ph0','e-ins1','e-ins2','e-silbi','e-samsung','e-var2'];
+  const A_FIELDS = ['e-food','e-wolse','e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1','e-ins','e-fam','e-med'];
+  const B_FIELDS = ['e-loan1','e-loan2','e-water','e-ph0','e-ins1','e-ins2','e-silbi','e-samsung','e-var2'];
 
   function fmt(n) { return Math.round(n||0).toLocaleString('ko-KR'); }
   function v(id) { return parseInt(document.getElementById(id)?.value||'0')||0; }
