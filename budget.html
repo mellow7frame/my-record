@@ -9,9 +9,8 @@
 <style>
   :root {
     --bg: #faf8f5; --surface: #ffffff; --surface2: #f5f2ee;
-    --border: #e8e0d5; --accent: #c17f5a; --accent2: #8b6f5e;
-    --text: #2d2420; --text2: #8b7e77; --up: #e05c5c; --down: #4a9e8a;
-    --gold: #c17f5a;
+    --border: #e8e0d5; --accent: #c17f5a; --text: #2d2420;
+    --text2: #8b7e77; --up: #e05c5c; --down: #4a9e8a; --card: #c17f5a;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); font-family: 'Noto Sans KR', sans-serif; color: var(--text); min-height: 100vh; }
@@ -24,76 +23,87 @@
   .google-btn { display: flex; align-items: center; gap: 12px; background: white; border: 1.5px solid var(--border); border-radius: 24px; padding: 14px 28px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--text); cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.06); font-weight: 500; }
   .google-logo { width: 20px; height: 20px; }
 
-  .header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); background: white; display: flex; align-items: center; justify-content: space-between; }
+  .header { padding: 20px 20px 14px; border-bottom: 1px solid var(--border); background: white; display: flex; align-items: center; justify-content: space-between; }
   .header-title { font-family: 'Noto Serif KR', serif; font-size: 20px; color: var(--accent); }
   .header-right { display: flex; align-items: center; gap: 8px; }
   .user-avatar { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); }
   .logout-btn { background: none; border: 1px solid var(--border); border-radius: 10px; padding: 3px 10px; font-size: 11px; color: var(--text2); cursor: pointer; font-family: 'Noto Sans KR', sans-serif; }
 
-  .month-bar { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 14px 20px; background: white; border-bottom: 1px solid var(--border); }
+  .month-bar { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 20px; background: white; border-bottom: 1px solid var(--border); }
   .month-nav { background: none; border: 1px solid var(--border); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; font-size: 16px; color: var(--text2); }
   .month-label { font-family: 'Noto Serif KR', serif; font-size: 16px; color: var(--text); font-weight: 700; min-width: 100px; text-align: center; }
 
   .tab-nav { display: flex; background: white; border-bottom: 1px solid var(--border); }
-  .tab-btn { flex: 1; padding: 12px 4px; border: none; background: transparent; font-family: 'Noto Sans KR', sans-serif; font-size: 12px; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 500; }
+  .tab-btn { flex: 1; padding: 11px 4px; border: none; background: transparent; font-family: 'Noto Sans KR', sans-serif; font-size: 12px; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; font-weight: 500; }
   .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-  .view { display: none; padding: 16px; }
+  .view { display: none; padding: 14px; }
   .view.active { display: block; }
 
-  /* 섹션 카드 */
-  .section-card { background: white; border-radius: 16px; padding: 18px; border: 1px solid var(--border); margin-bottom: 14px; }
-  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-  .section-title { font-family: 'Noto Serif KR', serif; font-size: 14px; color: var(--accent); font-weight: 700; }
-  .section-total { font-size: 13px; color: var(--text2); }
-  .section-total span { color: var(--accent); font-weight: 700; }
-
-  .item-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--border); }
-  .item-row:last-child { border-bottom: none; }
-  .item-left { display: flex; align-items: center; gap: 6px; flex: 1; }
-  .item-name { font-size: 14px; color: var(--text); }
-  .item-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-  .amount-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--text); width: 120px; text-align: right; outline: none; }
-  .amount-input:focus { border-color: var(--accent); }
-  .amount-input::placeholder { color: var(--text2); font-size: 12px; }
-  .won { font-size: 12px; color: var(--text2); white-space: nowrap; }
-  .date-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 12px; color: var(--text2); width: 105px; outline: none; }
-  .date-input:focus { border-color: var(--accent); }
-  textarea.memo-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--text); resize: none; outline: none; min-height: 90px; line-height: 1.7; }
-  textarea.memo-input:focus { border-color: var(--accent); }
-  textarea.memo-input::placeholder { color: var(--text2); }
-
   /* 요약 바 */
-  .summary-bar { background: white; border-radius: 16px; padding: 16px 18px; border: 1px solid var(--border); margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; text-align: center; }
-  .summary-item-label { font-size: 10px; color: var(--text2); margin-bottom: 4px; }
-  .summary-item-val { font-size: 14px; font-weight: 700; }
-  .val-income { color: var(--down); }
-  .val-expense { color: var(--up); }
-  .val-remain { color: var(--accent); }
+  .summary-bar { background: white; border-radius: 14px; padding: 14px 16px; border: 1px solid var(--border); margin-bottom: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; text-align: center; }
+  .sum-label { font-size: 10px; color: var(--text2); margin-bottom: 3px; }
+  .sum-val { font-size: 13px; font-weight: 700; }
+  .val-in { color: var(--down); }
+  .val-out { color: var(--up); }
+  .val-rem { color: var(--accent); }
 
+  /* 섹션 카드 */
+  .sec { background: white; border-radius: 14px; padding: 16px; border: 1px solid var(--border); margin-bottom: 12px; }
+  .sec-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; margin-bottom: 4px; border-bottom: 2px solid var(--border); }
+  .sec-title { font-family: 'Noto Serif KR', serif; font-size: 14px; color: var(--accent); font-weight: 700; }
+  .sec-total { font-size: 12px; color: var(--text2); }
+  .sec-total b { color: var(--accent); }
+
+  /* 항목 행 */
+  .row { padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .row:last-child { border-bottom: none; }
+  .row-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .row-name { font-size: 13px; color: var(--text); flex: 1; display: flex; align-items: center; gap: 4px; }
+  .card-badge { font-size: 10px; background: rgba(193,127,90,0.12); color: var(--accent); border-radius: 4px; padding: 1px 5px; font-weight: 700; white-space: nowrap; }
+  .fixed-val { font-size: 12px; color: var(--text2); white-space: nowrap; }
+  .row-inputs { display: flex; align-items: center; gap: 4px; }
+  .amt { background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 6px 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 13px; color: var(--text); width: 110px; text-align: right; outline: none; }
+  .amt:focus { border-color: var(--accent); }
+  .won { font-size: 11px; color: var(--text2); }
+  .memo-inline { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 5px 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 12px; color: var(--text); outline: none; margin-top: 5px; }
+  .memo-inline:focus { border-color: var(--accent); }
+  .memo-inline::placeholder { color: var(--text2); }
+
+  /* 소계 행 */
+  .subtotal-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 6px; margin-top: 4px; border-top: 1px dashed var(--border); }
+  .subtotal-label { font-size: 12px; color: var(--text2); font-weight: 700; }
+  .subtotal-val { font-size: 13px; color: var(--accent); font-weight: 700; }
+
+  /* 카드합계 행 */
+  .card-total-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: rgba(193,127,90,0.07); border-radius: 8px; margin: 8px 0 4px; }
+  .card-total-label { font-size: 12px; color: var(--accent); font-weight: 700; }
+  .card-total-val { font-size: 13px; color: var(--accent); font-weight: 700; }
+
+  /* 비고정 메모 */
+  .memo-area { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-family: 'Noto Sans KR', sans-serif; font-size: 13px; color: var(--text); resize: none; outline: none; min-height: 80px; line-height: 1.7; }
+  .memo-area:focus { border-color: var(--accent); }
+  .memo-area::placeholder { color: var(--text2); }
+  .memo-label { font-size: 11px; color: var(--text2); margin-bottom: 6px; letter-spacing: 1px; font-weight: 700; }
+
+  .divider { height: 1px; background: var(--border); margin: 8px 0; }
+  .add-btn { width: 100%; background: none; border: 1px dashed var(--border); border-radius: 8px; padding: 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 12px; color: var(--text2); cursor: pointer; margin-top: 8px; }
   .save-btn { width: 100%; background: var(--accent); color: white; border: none; border-radius: 12px; padding: 14px; font-family: 'Noto Sans KR', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; }
 
   /* 통계 */
-  .chart-card { background: white; border-radius: 16px; padding: 20px; border: 1px solid var(--border); margin-bottom: 14px; }
-  .chart-title { font-size: 13px; color: var(--text2); font-weight: 700; letter-spacing: 1px; margin-bottom: 16px; }
+  .chart-card { background: white; border-radius: 14px; padding: 18px; border: 1px solid var(--border); margin-bottom: 12px; }
+  .chart-title { font-size: 12px; color: var(--text2); font-weight: 700; letter-spacing: 1px; margin-bottom: 14px; }
   .chart-wrap { position: relative; height: 200px; }
-  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); }
   .stat-row:last-child { border-bottom: none; }
   .stat-name { font-size: 13px; color: var(--text); }
-  .stat-vals { display: flex; gap: 10px; align-items: center; }
-  .stat-amount { font-size: 13px; font-weight: 500; }
+  .stat-r { display: flex; gap: 8px; align-items: center; }
+  .stat-amt { font-size: 13px; font-weight: 500; }
   .vs-up { color: var(--up); font-size: 11px; }
   .vs-down { color: var(--down); font-size: 11px; }
 
   .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text); color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap; z-index: 100; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  .divider { height: 1px; background: var(--border); margin: 10px 0; }
-  .add-item-btn { width: 100%; background: none; border: 1px dashed var(--border); border-radius: 8px; padding: 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 12px; color: var(--text2); cursor: pointer; margin-top: 8px; }
-  .del-btn { background: none; border: none; color: var(--border); cursor: pointer; font-size: 15px; padding: 0; line-height: 1; }
-  .del-btn:hover { color: var(--up); }
-  .edit-btn { background: none; border: none; color: var(--border); cursor: pointer; font-size: 13px; padding: 0; }
-  .name-input-inline { background: var(--surface2); border: 1px solid var(--accent); border-radius: 6px; padding: 3px 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 13px; color: var(--text); width: 90px; outline: none; }
 </style>
 </head>
 <body>
@@ -121,160 +131,258 @@
       <button class="logout-btn" onclick="signOut()">로그아웃</button>
     </div>
   </div>
-
   <div class="month-bar">
     <button class="month-nav" onclick="changeMonth(-1)">‹</button>
     <div class="month-label" id="monthLabel"></div>
     <button class="month-nav" onclick="changeMonth(1)">›</button>
   </div>
-
   <div class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('record')">기록</button>
     <button class="tab-btn" onclick="switchTab('stats')">통계</button>
     <button class="tab-btn" onclick="switchTab('trend')">추이</button>
   </div>
 
-  <!-- 기록 탭 -->
   <div class="view active" id="view-record">
+
     <!-- 요약 -->
-    <div class="summary-bar" id="summaryBar">
-      <div><div class="summary-item-label">총 수입</div><div class="summary-item-val val-income" id="sum-income">0</div></div>
-      <div><div class="summary-item-label">총 지출</div><div class="summary-item-val val-expense" id="sum-expense">0</div></div>
-      <div><div class="summary-item-label">잔액</div><div class="summary-item-val val-remain" id="sum-remain">0</div></div>
+    <div class="summary-bar">
+      <div><div class="sum-label">총 수입</div><div class="sum-val val-in" id="s-income">-</div></div>
+      <div><div class="sum-label">총 지출</div><div class="sum-val val-out" id="s-expense">-</div></div>
+      <div><div class="sum-label">잔액</div><div class="sum-val val-rem" id="s-remain">-</div></div>
     </div>
 
     <!-- 수입 -->
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-title">💵 총 수입</div>
-        <div class="section-total">합계 <span id="total-income">0</span>원</div>
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-title">💵 총 수입</div>
+        <div class="sec-total">합계 <b id="t-income">0</b>원</div>
       </div>
-      <div class="item-row">
-        <div class="item-left"><span class="item-name">가게 소득</span></div>
-        <div class="item-right">
-          <input class="amount-input" type="number" id="inc-shop" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">가게 소득</div>
+          <div class="row-inputs"><input class="amt" type="number" id="i-shop" placeholder="0" oninput="calc()"><span class="won">원</span></div>
         </div>
+        <input class="memo-inline" id="i-shop-m" placeholder="메모">
       </div>
-      <div class="item-row">
-        <div class="item-left"><span class="item-name">월세 소득</span></div>
-        <div class="item-right">
-          <input class="amount-input" type="number" id="inc-rent" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">월세 소득</div>
+          <div class="row-inputs"><input class="amt" type="number" id="i-rent" placeholder="0" oninput="calc()"><span class="won">원</span></div>
         </div>
+        <input class="memo-inline" id="i-rent-m" placeholder="메모">
       </div>
-      <div id="extra-income-rows"></div>
-      <button class="add-item-btn" onclick="addExtraIncome()">+ 수입 항목 추가</button>
+      <div id="extra-inc-rows"></div>
+      <button class="add-btn" onclick="addInc()">+ 수입 항목 추가</button>
     </div>
 
-    <!-- 지출 -->
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-title">💸 총 지출</div>
-        <div class="section-total">합계 <span id="total-expense">0</span>원</div>
+    <!-- 지출A: 식생활비 -->
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-title">🛒 지출합 (A)</div>
+        <div class="sec-total">합계 <b id="t-a">0</b>원</div>
       </div>
-      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
-        <div class="item-left"><span class="item-name">🍚 식비</span></div>
-        <div class="item-right">
-          <input class="date-input" type="date" id="exp-food-date">
-          <input class="amount-input" type="number" id="exp-food" placeholder="1,000,000" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">식생활비 <span class="fixed-val">기본 1,000,000</span></div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-food" placeholder="1000000" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-food-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">월세</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-wolse" placeholder="630000" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-wolse-m" placeholder="메모">
+      </div>
+
+      <!-- 카드 항목들 -->
+      <div class="card-total-row">
+        <div class="card-total-label">💳 카드결제 합계</div>
+        <div class="card-total-val"><span id="t-card">0</span>원</div>
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>핸드폰 (엄마)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ph1" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-ph1-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>핸드폰 (재원)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ph2" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-ph2-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>핸드폰 (재민)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ph3" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-ph3-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>TV인터넷</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-tv" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-tv-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>넷플릭스</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-nf" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-nf-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>도시가스</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-gas" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-gas-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>관리비</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-mgmt" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-mgmt-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>교육비 (눈높이)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-edu" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-edu-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>교통비</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-trans" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-trans-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>비고정 지출</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-var1" placeholder="0" oninput="calc()"><span class="won">원</span></div>
         </div>
       </div>
-      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
-        <div class="item-left"><span class="item-name">월세</span></div>
-        <div class="item-right">
-          <input class="date-input" type="date" id="exp-rent-date">
-          <input class="amount-input" type="number" id="exp-rent" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
-        </div>
+      <div style="margin-top:8px;">
+        <div class="memo-label">비고정 지출 내역 (카드)</div>
+        <textarea class="memo-area" id="e-var1-m" placeholder="카드 비고정 지출 내용을 적어요"></textarea>
       </div>
-      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
-        <div class="item-left"><span class="item-name">보험료</span></div>
-        <div class="item-right">
-          <input class="date-input" type="date" id="exp-insurance-date">
-          <input class="amount-input" type="number" id="exp-insurance" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
-        </div>
+    </div>
+
+    <!-- 지출B -->
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-title">🏦 지출합 (B)</div>
+        <div class="sec-total">합계 <b id="t-b">0</b>원</div>
       </div>
-      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
-        <div class="item-left"><span class="item-name">가족계</span></div>
-        <div class="item-right">
-          <input class="date-input" type="date" id="exp-family-date">
-          <input class="amount-input" type="number" id="exp-family" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">보험료 <span class="fixed-val">365,315</span></div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ins" placeholder="365315" oninput="calc()"><span class="won">원</span></div>
         </div>
+        <input class="memo-inline" id="e-ins-m" placeholder="메모">
       </div>
-      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
-        <div class="item-left"><span class="item-name">용돈</span></div>
-        <div class="item-right">
-          <input class="date-input" type="date" id="exp-allowance-date">
-          <input class="amount-input" type="number" id="exp-allowance" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">가족계</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-fam" placeholder="100000" oninput="calc()"><span class="won">원</span></div>
         </div>
+        <input class="memo-inline" id="e-fam-m" placeholder="메모">
       </div>
-      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
-        <div class="item-left"><span class="item-name">병원비</span></div>
-        <div class="item-right">
-          <input class="date-input" type="date" id="exp-medical-date">
-          <input class="amount-input" type="number" id="exp-medical" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">병원·문화비</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-med" placeholder="100000" oninput="calc()"><span class="won">원</span></div>
         </div>
+        <input class="memo-inline" id="e-med-m" placeholder="메모">
       </div>
-      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
-        <div class="item-left"><span class="item-name">문화비</span></div>
-        <div class="item-right">
-          <input class="date-input" type="date" id="exp-culture-date">
-          <input class="amount-input" type="number" id="exp-culture" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">대출상환 (아파트)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-loan1" placeholder="0" oninput="calc()"><span class="won">원</span></div>
         </div>
+        <input class="memo-inline" id="e-loan1-m" placeholder="메모">
       </div>
-      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
-        <div class="item-left"><span class="item-name">대출상환 (아파트)</span></div>
-        <div class="item-right">
-          <input class="date-input" type="date" id="exp-loan1-date">
-          <input class="amount-input" type="number" id="exp-loan1" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">대출상환 (자동차)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-loan2" placeholder="0" oninput="calc()"><span class="won">원</span></div>
         </div>
+        <input class="memo-inline" id="e-loan2-m" placeholder="메모">
       </div>
-      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
-        <div class="item-left"><span class="item-name">대출상환 (자동차)</span></div>
-        <div class="item-right">
-          <input class="date-input" type="date" id="exp-loan2-date">
-          <input class="amount-input" type="number" id="exp-loan2" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">정수기</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-water" placeholder="0" oninput="calc()"><span class="won">원</span></div>
         </div>
+        <input class="memo-inline" id="e-water-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">핸드폰 (아빠)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ph0" placeholder="0" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-ph0-m" placeholder="메모">
       </div>
       <div class="divider"></div>
-      <div class="item-row">
-        <div class="item-left"><span class="item-name" style="color:var(--text2);">비고정 지출 합계</span></div>
-        <div class="item-right">
-          <input class="amount-input" type="number" id="exp-variable" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">보험 (국민연금/국민카드) <span class="fixed-val">141,583</span></div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ins1" placeholder="141583" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-ins1-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">보험 (건보료/삼성카드) <span class="fixed-val">27,669</span></div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-ins2" placeholder="27669" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-ins2-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">실비 (이체)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-silbi" placeholder="86533" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-silbi-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">삼성화재 (이체)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-samsung" placeholder="12600" oninput="calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-samsung-m" placeholder="메모">
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">비고정 지출 (현대카드)</div>
+          <div class="row-inputs"><input class="amt" type="number" id="e-var2" placeholder="0" oninput="calc()"><span class="won">원</span></div>
         </div>
       </div>
-    </div>
-
-    <!-- 비고정 메모 -->
-    <div class="section-card">
-      <div class="section-header" style="margin-bottom:10px;">
-        <div class="section-title">📝 비고정 지출 내역</div>
+      <div style="margin-top:8px;">
+        <div class="memo-label">비고정 지출 내역 (현대카드)</div>
+        <textarea class="memo-area" id="e-var2-m" placeholder="현대카드 비고정 지출 내용을 적어요"></textarea>
       </div>
-      <textarea class="memo-input" id="memo-variable" placeholder="비고정 지출 내용을 적어요&#10;예) 명절선물 200,000 / 병원 피부과 230,500..."></textarea>
     </div>
 
     <!-- 이달 메모 -->
-    <div class="section-card">
-      <div class="section-header" style="margin-bottom:10px;">
-        <div class="section-title">🗒️ 이달 메모</div>
-      </div>
-      <textarea class="memo-input" id="memo-month" placeholder="이번 달 특이사항, 이슈 등을 적어요"></textarea>
+    <div class="sec">
+      <div class="memo-label">🗒️ 이달 메모</div>
+      <textarea class="memo-area" id="m-month" placeholder="이번 달 특이사항, 이슈 등을 적어요"></textarea>
     </div>
 
     <button class="save-btn" onclick="saveMonth()">이번 달 저장하기</button>
   </div>
 
-  <!-- 통계 탭 -->
+  <!-- 통계 -->
   <div class="view" id="view-stats">
     <div class="chart-card">
       <div class="chart-title">월별 총지출</div>
@@ -286,7 +394,7 @@
     </div>
   </div>
 
-  <!-- 추이 탭 -->
+  <!-- 추이 -->
   <div class="view" id="view-trend">
     <div class="chart-card">
       <div class="chart-title">전월 대비 증감</div>
@@ -300,7 +408,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut as fbSignOut } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc, getDoc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+  import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyDBT7TGCQbi3TDXId_49_ZxS9__Jxm7yeY",
@@ -320,13 +428,29 @@
   let curYear = new Date().getFullYear();
   let curMonth = new Date().getMonth() + 1;
   let allData = {};
-  let extraIncomeItems = []; // 추가 수입 항목
-  let monthlyChart = null;
-  let pieChart = null;
+  let extraInc = [];
+  let monthlyChart = null, pieChart = null;
 
-  function fmt(n) { return Math.round(n).toLocaleString('ko-KR'); }
-  function val(id) { return parseInt(document.getElementById(id)?.value || '0') || 0; }
-  function monthKey(y, m) { y=y||curYear; m=m||curMonth; return `${y}-${String(m).padStart(2,'0')}`; }
+  // 저장할 필드 목록
+  const FIELDS = [
+    'i-shop','i-rent','e-food','e-wolse',
+    'e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1',
+    'e-ins','e-fam','e-med','e-loan1','e-loan2','e-water','e-ph0',
+    'e-ins1','e-ins2','e-silbi','e-samsung','e-var2'
+  ];
+  const MEMO_FIELDS = [
+    'i-shop-m','i-rent-m','e-food-m','e-wolse-m',
+    'e-ph1-m','e-ph2-m','e-ph3-m','e-tv-m','e-nf-m','e-gas-m','e-mgmt-m','e-edu-m','e-trans-m','e-var1-m',
+    'e-ins-m','e-fam-m','e-med-m','e-loan1-m','e-loan2-m','e-water-m','e-ph0-m',
+    'e-ins1-m','e-ins2-m','e-silbi-m','e-samsung-m','e-var2-m','m-month'
+  ];
+  const CARD_FIELDS = ['e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1'];
+  const A_FIELDS = ['e-food','e-wolse','e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1'];
+  const B_FIELDS = ['e-ins','e-fam','e-med','e-loan1','e-loan2','e-water','e-ph0','e-ins1','e-ins2','e-silbi','e-samsung','e-var2'];
+
+  function fmt(n) { return Math.round(n||0).toLocaleString('ko-KR'); }
+  function v(id) { return parseInt(document.getElementById(id)?.value||'0')||0; }
+  function mk(y,m) { y=y||curYear; m=m||curMonth; return `${y}-${String(m).padStart(2,'0')}`; }
 
   function showToast(msg) {
     const t = document.getElementById('toast');
@@ -334,64 +458,46 @@
     setTimeout(() => t.classList.remove('show'), 2000);
   }
 
-  function updateMonthLabel() {
-    document.getElementById('monthLabel').textContent = `${curYear}년 ${curMonth}월`;
-  }
-
-  window.updateSummary = () => {
-    const income = val('inc-shop') + val('inc-rent') + extraIncomeItems.reduce((s,item) => s + (parseInt(document.getElementById('inc-extra-'+item.id)?.value||'0')||0), 0);
-    const expense = val('exp-food') + val('exp-rent') + val('exp-insurance') + val('exp-family') +
-      val('exp-allowance') + val('exp-medical') + val('exp-culture') + val('exp-loan1') + val('exp-loan2') + val('exp-variable');
+  window.calc = () => {
+    const income = v('i-shop') + v('i-rent') + extraInc.reduce((s,i) => s+(parseInt(document.getElementById('i-extra-'+i.id)?.value||'0')||0), 0);
+    const cardTotal = CARD_FIELDS.reduce((s,f) => s+v(f), 0);
+    const aTotal = A_FIELDS.reduce((s,f) => s+v(f), 0);
+    const bTotal = B_FIELDS.reduce((s,f) => s+v(f), 0);
+    const expense = aTotal + bTotal;
     const remain = income - expense;
-    document.getElementById('total-income').textContent = fmt(income);
-    document.getElementById('total-expense').textContent = fmt(expense);
-    document.getElementById('sum-income').textContent = fmt(income);
-    document.getElementById('sum-expense').textContent = fmt(expense);
-    document.getElementById('sum-remain').textContent = fmt(remain);
-    document.getElementById('sum-remain').style.color = remain >= 0 ? 'var(--down)' : 'var(--up)';
+
+    document.getElementById('t-income').textContent = fmt(income);
+    document.getElementById('t-card').textContent = fmt(cardTotal);
+    document.getElementById('t-a').textContent = fmt(aTotal);
+    document.getElementById('t-b').textContent = fmt(bTotal);
+    document.getElementById('s-income').textContent = fmt(income)+'원';
+    document.getElementById('s-expense').textContent = fmt(expense)+'원';
+    document.getElementById('s-remain').textContent = fmt(remain)+'원';
+    document.getElementById('s-remain').style.color = remain >= 0 ? 'var(--down)' : 'var(--up)';
   };
 
-  window.addExtraIncome = () => {
+  window.addInc = () => {
     const id = Date.now();
-    extraIncomeItems.push({ id, name: '기타 수입' });
-    renderExtraIncome();
+    extraInc.push({ id, name: '기타 수입' });
+    renderExtraInc();
   };
 
-  function renderExtraIncome() {
-    const container = document.getElementById('extra-income-rows');
-    container.innerHTML = extraIncomeItems.map(item => `
-      <div class="item-row" id="extra-row-${item.id}">
-        <div class="item-left">
-          <span id="extra-name-${item.id}" class="item-name">${item.name}</span>
-          <button class="edit-btn" onclick="editExtraName(${item.id})">✏️</button>
-          <button class="del-btn" onclick="removeExtraIncome(${item.id})">×</button>
+  function renderExtraInc() {
+    document.getElementById('extra-inc-rows').innerHTML = extraInc.map(item => `
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">
+            <input style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:13px;width:100px;outline:none;" 
+              value="${item.name}" onchange="extraInc.find(i=>i.id===${item.id}).name=this.value">
+            <button onclick="extraInc=extraInc.filter(i=>i.id!==${item.id});renderExtraInc();calc();" 
+              style="background:none;border:none;color:var(--border);cursor:pointer;font-size:15px;">×</button>
+          </div>
+          <div class="row-inputs"><input class="amt" type="number" id="i-extra-${item.id}" placeholder="0" oninput="calc()"><span class="won">원</span></div>
         </div>
-        <div class="item-right">
-          <input class="amount-input" type="number" id="inc-extra-${item.id}" placeholder="0" oninput="updateSummary()">
-          <span class="won">원</span>
-        </div>
+        <input class="memo-inline" id="i-extra-${item.id}-m" placeholder="메모">
       </div>
     `).join('');
   }
-
-  window.editExtraName = (id) => {
-    const span = document.getElementById(`extra-name-${id}`);
-    const item = extraIncomeItems.find(i => i.id === id);
-    span.outerHTML = `<input class="name-input-inline" id="extra-name-${id}" value="${item.name}" onblur="saveExtraName(${id},this.value)" onkeydown="if(event.key==='Enter')this.blur()">`;
-    document.getElementById(`extra-name-${id}`).focus();
-  };
-
-  window.saveExtraName = (id, val) => {
-    const item = extraIncomeItems.find(i => i.id === id);
-    if (item && val.trim()) item.name = val.trim();
-    renderExtraIncome();
-  };
-
-  window.removeExtraIncome = (id) => {
-    extraIncomeItems = extraIncomeItems.filter(i => i.id !== id);
-    renderExtraIncome();
-    updateSummary();
-  };
 
   window.signInWithGoogle = async () => {
     try { await signInWithPopup(auth, provider); }
@@ -406,9 +512,9 @@
       document.getElementById('mainApp').style.display = 'block';
       const av = document.getElementById('userAvatar');
       if (user.photoURL) { av.src = user.photoURL; av.style.display = 'block'; }
-      updateMonthLabel();
-      await loadAllMonths();
-      loadMonthToForm();
+      document.getElementById('monthLabel').textContent = `${curYear}년 ${curMonth}월`;
+      await loadAll();
+      loadForm();
     } else {
       currentUser = null;
       document.getElementById('loginScreen').style.display = 'flex';
@@ -416,89 +522,57 @@
     }
   });
 
-  async function loadAllMonths() {
+  async function loadAll() {
     try {
-      const q = query(collection(db, 'budget_v2'), where('uid','==',currentUser.uid));
+      const q = query(collection(db, 'budget_v3'), where('uid','==',currentUser.uid));
       const snap = await getDocs(q);
       allData = {};
       snap.forEach(ds => { allData[ds.data().monthKey] = ds.data(); });
     } catch(e) {}
   }
 
-  function loadMonthToForm() {
-    const d = allData[monthKey()] || {};
-    const setVal = (id, v) => { const el = document.getElementById(id); if(el) el.value = v || ''; };
-    setVal('inc-shop', d.incShop);
-    setVal('inc-rent', d.incRent);
-    setVal('exp-food', d.expFood);
-    setVal('exp-rent', d.expRent);
-    setVal('exp-insurance', d.expInsurance);
-    setVal('exp-family', d.expFamily);
-    setVal('exp-allowance', d.expAllowance);
-    setVal('exp-medical', d.expMedical);
-    setVal('exp-culture', d.expCulture);
-    setVal('exp-loan1', d.expLoan1);
-    setVal('exp-loan2', d.expLoan2);
-    setVal('exp-variable', d.expVariable);
-    setVal('memo-variable', d.memoVariable);
-    setVal('memo-month', d.memoMonth);
-    const setDate = (id, v) => { const el = document.getElementById(id); if(el && v) el.value = v; };
-    setDate('exp-food-date', d.expFoodDate);
-    setDate('exp-rent-date', d.expRentDate);
-    setDate('exp-insurance-date', d.expInsuranceDate);
-    setDate('exp-family-date', d.expFamilyDate);
-    setDate('exp-allowance-date', d.expAllowanceDate);
-    setDate('exp-medical-date', d.expMedicalDate);
-    setDate('exp-culture-date', d.expCultureDate);
-    setDate('exp-loan1-date', d.expLoan1Date);
-    setDate('exp-loan2-date', d.expLoan2Date);
-    extraIncomeItems = d.extraIncome || [];
-    renderExtraIncome();
-    // 추가 수입 값 복원
-    if (d.extraIncomeValues) {
-      extraIncomeItems.forEach(item => {
-        const el = document.getElementById('inc-extra-'+item.id);
-        if (el) el.value = d.extraIncomeValues[item.id] || '';
+  function loadForm() {
+    const d = allData[mk()] || {};
+    FIELDS.forEach(f => { const el = document.getElementById(f); if(el) el.value = d[f.replace(/-/g,'_')] || ''; });
+    MEMO_FIELDS.forEach(f => { const el = document.getElementById(f); if(el) el.value = d[f.replace(/-/g,'_')] || ''; });
+    extraInc = d.extraInc || [];
+    renderExtraInc();
+    if (d.extraIncValues) {
+      extraInc.forEach(item => {
+        const el = document.getElementById('i-extra-'+item.id);
+        if(el) el.value = d.extraIncValues[item.id] || '';
+        const mel = document.getElementById('i-extra-'+item.id+'-m');
+        if(mel) mel.value = d.extraIncMemos?.[item.id] || '';
       });
     }
-    updateSummary();
+    calc();
   }
 
   window.saveMonth = async () => {
-    const extraIncomeValues = {};
-    extraIncomeItems.forEach(item => {
-      extraIncomeValues[item.id] = parseInt(document.getElementById('inc-extra-'+item.id)?.value||'0')||0;
-    });
-    const totalIncome = val('inc-shop') + val('inc-rent') + Object.values(extraIncomeValues).reduce((a,b)=>a+b,0);
-    const totalExpense = val('exp-food') + val('exp-rent') + val('exp-insurance') + val('exp-family') +
-      val('exp-allowance') + val('exp-medical') + val('exp-culture') + val('exp-loan1') + val('exp-loan2') + val('exp-variable');
+    const data = { uid: currentUser.uid, monthKey: mk(), year: curYear, month: curMonth };
+    FIELDS.forEach(f => { data[f.replace(/-/g,'_')] = parseInt(document.getElementById(f)?.value||'0')||0; });
+    MEMO_FIELDS.forEach(f => { data[f.replace(/-/g,'_')] = document.getElementById(f)?.value||''; });
 
-    const data = {
-      uid: currentUser.uid, monthKey: monthKey(), year: curYear, month: curMonth,
-      incShop: val('inc-shop'), incRent: val('inc-rent'),
-      expFood: val('exp-food'), expRent: val('exp-rent'), expInsurance: val('exp-insurance'),
-      expFamily: val('exp-family'), expAllowance: val('exp-allowance'), expMedical: val('exp-medical'),
-      expCulture: val('exp-culture'), expLoan1: val('exp-loan1'), expLoan2: val('exp-loan2'),
-      expVariable: val('exp-variable'),
-      expFoodDate: document.getElementById('exp-food-date')?.value||'',
-      expRentDate: document.getElementById('exp-rent-date')?.value||'',
-      expInsuranceDate: document.getElementById('exp-insurance-date')?.value||'',
-      expFamilyDate: document.getElementById('exp-family-date')?.value||'',
-      expAllowanceDate: document.getElementById('exp-allowance-date')?.value||'',
-      expMedicalDate: document.getElementById('exp-medical-date')?.value||'',
-      expCultureDate: document.getElementById('exp-culture-date')?.value||'',
-      expLoan1Date: document.getElementById('exp-loan1-date')?.value||'',
-      expLoan2Date: document.getElementById('exp-loan2-date')?.value||'',
-      memoVariable: document.getElementById('memo-variable').value,
-      memoMonth: document.getElementById('memo-month').value,
-      extraIncome: extraIncomeItems, extraIncomeValues,
-      totalIncome, totalExpense, remain: totalIncome - totalExpense
-    };
+    const extraIncValues = {}, extraIncMemos = {};
+    extraInc.forEach(item => {
+      extraIncValues[item.id] = parseInt(document.getElementById('i-extra-'+item.id)?.value||'0')||0;
+      extraIncMemos[item.id] = document.getElementById('i-extra-'+item.id+'-m')?.value||'';
+    });
+
+    const income = v('i-shop') + v('i-rent') + Object.values(extraIncValues).reduce((a,b)=>a+b,0);
+    const expense = [...A_FIELDS,...B_FIELDS].reduce((s,f)=>s+v(f),0);
+    data.extraInc = extraInc;
+    data.extraIncValues = extraIncValues;
+    data.extraIncMemos = extraIncMemos;
+    data.totalIncome = income;
+    data.totalExpense = expense;
+    data.remain = income - expense;
+    data.cardTotal = CARD_FIELDS.reduce((s,f)=>s+v(f),0);
+
     try {
-      await setDoc(doc(db, 'budget_v2', currentUser.uid+'_'+monthKey()), data);
-      allData[monthKey()] = data;
+      await setDoc(doc(db, 'budget_v3', currentUser.uid+'_'+mk()), data);
+      allData[mk()] = data;
       showToast(`${curYear}년 ${curMonth}월 저장됐어요 ✦`);
-      updateSummary();
     } catch(e) { showToast('저장 오류: '+e.message); }
   };
 
@@ -506,98 +580,83 @@
     curMonth += dir;
     if (curMonth > 12) { curMonth = 1; curYear++; }
     if (curMonth < 1) { curMonth = 12; curYear--; }
-    updateMonthLabel();
-    const activeTab = document.querySelector('.tab-btn.active')?.textContent?.trim();
-    if (activeTab === '기록') loadMonthToForm();
-    else if (activeTab === '통계') renderStats();
+    document.getElementById('monthLabel').textContent = `${curYear}년 ${curMonth}월`;
+    const active = document.querySelector('.tab-btn.active')?.textContent?.trim();
+    if (active==='기록') loadForm();
+    else if (active==='통계') renderStats();
     else renderTrend();
   };
 
   window.switchTab = (tab) => {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
     document.getElementById('view-'+tab).classList.add('active');
     event.target.classList.add('active');
-    if (tab === 'record') loadMonthToForm();
-    else if (tab === 'stats') renderStats();
+    if (tab==='record') loadForm();
+    else if (tab==='stats') renderStats();
     else renderTrend();
   };
 
   function renderStats() {
     const months = [];
-    for (let i = 5; i >= 0; i--) {
-      let m = curMonth - i; let y = curYear;
-      while (m < 1) { m += 12; y--; }
-      const k = monthKey(y, m);
-      months.push({ label: `${m}월`, key: k, total: allData[k]?.totalExpense || 0 });
+    for (let i=5;i>=0;i--) {
+      let m=curMonth-i, y=curYear;
+      while(m<1){m+=12;y--;}
+      const k=mk(y,m);
+      months.push({label:`${m}월`,total:allData[k]?.totalExpense||0});
     }
-
     if (monthlyChart) monthlyChart.destroy();
-    const ctx1 = document.getElementById('monthlyChart').getContext('2d');
-    monthlyChart = new Chart(ctx1, {
-      type: 'bar',
-      data: {
-        labels: months.map(m => m.label),
-        datasets: [{ data: months.map(m => m.total), backgroundColor: months.map((_,i) => i===5?'#c17f5a':'#e8d5c0'), borderRadius: 6 }]
-      },
-      options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => fmt(v/10000)+'만' } } } }
+    monthlyChart = new Chart(document.getElementById('monthlyChart').getContext('2d'), {
+      type:'bar',
+      data:{labels:months.map(m=>m.label),datasets:[{data:months.map(m=>m.total),backgroundColor:months.map((_,i)=>i===5?'#c17f5a':'#e8d5c0'),borderRadius:6}]},
+      options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmt(v/10000)+'만'}}}}
     });
 
-    const d = allData[monthKey()] || {};
+    const d = allData[mk()] || {};
     const items = [
-      { name: '식비', val: d.expFood||0 }, { name: '월세', val: d.expRent||0 },
-      { name: '보험료', val: d.expInsurance||0 }, { name: '가족계', val: d.expFamily||0 },
-      { name: '용돈', val: d.expAllowance||0 }, { name: '병원비', val: d.expMedical||0 },
-      { name: '문화비', val: d.expCulture||0 }, { name: '대출(아파트)', val: d.expLoan1||0 },
-      { name: '대출(자동차)', val: d.expLoan2||0 }, { name: '비고정', val: d.expVariable||0 }
-    ].filter(i => i.val > 0);
+      {name:'식생활비',val:d.e_food||0},{name:'월세',val:d.e_wolse||0},
+      {name:'카드결제',val:d.cardTotal||0},{name:'보험료',val:d.e_ins||0},
+      {name:'가족계',val:d.e_fam||0},{name:'병원문화',val:d.e_med||0},
+      {name:'대출(아파트)',val:d.e_loan1||0},{name:'대출(자동차)',val:d.e_loan2||0},
+      {name:'비고정(현대)',val:d.e_var2||0}
+    ].filter(i=>i.val>0);
 
     if (pieChart) pieChart.destroy();
-    const ctx2 = document.getElementById('pieChart').getContext('2d');
-    const colors = ['#c17f5a','#8b6f5e','#d4a574','#e8c09a','#6b8e7f','#4a9e8a','#e05c5c','#9b7fb6','#5b9bd5','#f0d5b8'];
-    pieChart = new Chart(ctx2, {
-      type: 'doughnut',
-      data: { labels: items.map(i=>i.name), datasets: [{ data: items.map(i=>i.val), backgroundColor: colors.slice(0,items.length), borderWidth: 2, borderColor: '#faf8f5' }] },
-      options: { plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 8 } } } }
+    const colors=['#c17f5a','#8b6f5e','#d4a574','#e8c09a','#6b8e7f','#4a9e8a','#e05c5c','#9b7fb6','#5b9bd5'];
+    pieChart = new Chart(document.getElementById('pieChart').getContext('2d'), {
+      type:'doughnut',
+      data:{labels:items.map(i=>i.name),datasets:[{data:items.map(i=>i.val),backgroundColor:colors.slice(0,items.length),borderWidth:2,borderColor:'#faf8f5'}]},
+      options:{plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:8}}}}
     });
   }
 
   function renderTrend() {
-    const cur = allData[monthKey()] || {};
-    let prevM = curMonth-1; let prevY = curYear;
-    if (prevM < 1) { prevM = 12; prevY--; }
-    const prev = allData[monthKey(prevY,prevM)] || {};
+    const cur = allData[mk()] || {};
+    let pm=curMonth-1, py=curYear;
+    if(pm<1){pm=12;py--;}
+    const prev = allData[mk(py,pm)] || {};
 
     const items = [
-      { name: '총수입', cur: cur.totalIncome||0, prev: prev.totalIncome||0 },
-      { name: '총지출', cur: cur.totalExpense||0, prev: prev.totalExpense||0 },
-      { name: '잔액', cur: cur.remain||0, prev: prev.remain||0 },
-      { name: '─', divider: true },
-      { name: '식비', cur: cur.expFood||0, prev: prev.expFood||0 },
-      { name: '월세', cur: cur.expRent||0, prev: prev.expRent||0 },
-      { name: '보험료', cur: cur.expInsurance||0, prev: prev.expInsurance||0 },
-      { name: '가족계', cur: cur.expFamily||0, prev: prev.expFamily||0 },
-      { name: '용돈', cur: cur.expAllowance||0, prev: prev.expAllowance||0 },
-      { name: '병원비', cur: cur.expMedical||0, prev: prev.expMedical||0 },
-      { name: '문화비', cur: cur.expCulture||0, prev: prev.expCulture||0 },
-      { name: '대출(아파트)', cur: cur.expLoan1||0, prev: prev.expLoan1||0 },
-      { name: '대출(자동차)', cur: cur.expLoan2||0, prev: prev.expLoan2||0 },
-      { name: '비고정', cur: cur.expVariable||0, prev: prev.expVariable||0 },
+      {name:'총수입',cur:cur.totalIncome||0,prev:prev.totalIncome||0},
+      {name:'총지출',cur:cur.totalExpense||0,prev:prev.totalExpense||0},
+      {name:'잔액',cur:cur.remain||0,prev:prev.remain||0},
+      {divider:true},
+      {name:'식생활비',cur:cur.e_food||0,prev:prev.e_food||0},
+      {name:'월세',cur:cur.e_wolse||0,prev:prev.e_wolse||0},
+      {name:'카드합계',cur:cur.cardTotal||0,prev:prev.cardTotal||0},
+      {name:'보험료',cur:cur.e_ins||0,prev:prev.e_ins||0},
+      {name:'가족계',cur:cur.e_fam||0,prev:prev.e_fam||0},
+      {name:'병원문화',cur:cur.e_med||0,prev:prev.e_med||0},
+      {name:'대출(아파트)',cur:cur.e_loan1||0,prev:prev.e_loan1||0},
+      {name:'대출(자동차)',cur:cur.e_loan2||0,prev:prev.e_loan2||0},
+      {name:'비고정(현대)',cur:cur.e_var2||0,prev:prev.e_var2||0},
     ];
 
     document.getElementById('trendList').innerHTML = items.map(item => {
-      if (item.divider) return `<div style="border-top:1px dashed var(--border);margin:8px 0;"></div>`;
+      if(item.divider) return `<div style="border-top:1px dashed var(--border);margin:8px 0;"></div>`;
       const diff = item.cur - item.prev;
-      const diffStr = diff === 0 ? '' : diff > 0
-        ? `<span class="vs-up">▲${fmt(diff)}</span>`
-        : `<span class="vs-down">▼${fmt(Math.abs(diff))}</span>`;
-      return `<div class="stat-row">
-        <span class="stat-name">${item.name}</span>
-        <div class="stat-vals">
-          <span class="stat-amount">${fmt(item.cur)}원</span>
-          ${diffStr}
-        </div>
-      </div>`;
+      const ds = diff===0?'':diff>0?`<span class="vs-up">▲${fmt(diff)}</span>`:`<span class="vs-down">▼${fmt(Math.abs(diff))}</span>`;
+      return `<div class="stat-row"><span class="stat-name">${item.name}</span><div class="stat-r"><span class="stat-amt">${fmt(item.cur)}원</span>${ds}</div></div>`;
     }).join('');
   }
 </script>
