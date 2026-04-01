@@ -236,10 +236,17 @@
       </div>
       <div class="row">
         <div class="row-top">
-          <div class="row-name"><span class="card-badge">카드</span>TV인터넷</div>
+          <div class="row-name"><span class="card-badge">카드</span>BTV/인터넷</div>
           <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-tv" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-tv-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name"><span class="card-badge">카드</span>전기세/TV수신료</div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-elec" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="e-elec-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
@@ -247,13 +254,6 @@
           <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-nf" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="e-nf-m" placeholder="메모">
-      </div>
-       <div class="row">
-        <div class="row-top">
-          <div class="row-name"><span class="card-badge">카드</span>전기/TV수신료</div>
-          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="e-gas" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
-        </div>
-        <input class="memo-inline" id="e-gas-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
@@ -388,7 +388,7 @@
         </div>
       </div>
       <div style="margin-top:8px;">
-        <div class="memo-label">비고정 지출 내역</div>
+        <div class="memo-label">비고정 지출 내역 (현대카드)</div>
         <textarea class="memo-area" id="e-var2-m" placeholder="현대카드 비고정 지출 내용을 적어요"></textarea>
       </div>
     </div>
@@ -454,18 +454,18 @@
   // 저장할 필드 목록
   const FIELDS = [
     'i-shop','i-rent','i-etc1','i-etc2','e-food','e-wolse',
-    'e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1',
+    'e-ph1','e-ph2','e-ph3','e-tv','e-elec','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1',
     'e-ins','e-fam','e-med','e-loan1','e-loan2','e-water','e-ph0',
     'e-ins1','e-ins2','e-silbi','e-samsung','e-var2'
   ];
   const MEMO_FIELDS = [
     'i-shop-m','i-rent-m','i-etc1-m','i-etc2-m','e-food-m','e-wolse-m',
-    'e-ph1-m','e-ph2-m','e-ph3-m','e-tv-m','e-nf-m','e-gas-m','e-mgmt-m','e-edu-m','e-trans-m','e-var1-m',
+    'e-ph1-m','e-ph2-m','e-ph3-m','e-tv-m','e-elec-m','e-nf-m','e-gas-m','e-mgmt-m','e-edu-m','e-trans-m','e-var1-m',
     'e-ins-m','e-fam-m','e-med-m','e-loan1-m','e-loan2-m','e-water-m','e-ph0-m',
     'e-ins1-m','e-ins2-m','e-silbi-m','e-samsung-m','e-var2-m','m-month'
   ];
-  const CARD_FIELDS = ['e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1'];
-  const A_FIELDS = ['e-food','e-wolse','e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1','e-ins','e-fam','e-med'];
+  const CARD_FIELDS = ['e-ph1','e-ph2','e-ph3','e-tv','e-elec','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1'];
+  const A_FIELDS = ['e-food','e-wolse','e-ph1','e-ph2','e-ph3','e-tv','e-elec','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1','e-ins','e-fam','e-med'];
   const B_FIELDS = ['e-loan1','e-loan2','e-water','e-ph0','e-ins1','e-ins2','e-silbi','e-samsung','e-var2'];
 
   function fmt(n) { return Math.round(n||0).toLocaleString('ko-KR'); }
