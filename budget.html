@@ -558,10 +558,12 @@
 
   function loadForm() {
     const d = allData[mk()] || {};
+    const DEFAULTS = {e_food:1000000,e_wolse:630000,e_ins:365315,e_fam:100000,e_med:100000,e_ins1:141583,e_ins2:27669,e_silbi:86533,e_samsung:12600};
     FIELDS.forEach(f => { 
       const el = document.getElementById(f); 
       if(el) { 
-        const val = d[f.replace(/-/g,'_')];
+        const key = f.replace(/-/g,'_');
+        const val = d[key] !== undefined ? d[key] : (DEFAULTS[key] || 0);
         el.value = val ? parseInt(val).toLocaleString('ko-KR') : '';
       } 
     });
