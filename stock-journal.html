@@ -96,74 +96,9 @@
 
   select.input-field { appearance: none; }
 
-  /* ── 용어 탭 전용 ── */
-  .term-divider {
-    display: flex; align-items: center; gap: 10px;
-    margin: 16px 0; font-size: 11px; color: var(--text2); letter-spacing: 1px;
-  }
-  .term-divider::before, .term-divider::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
+  /* ── 주식공부 탭 전용 ── */
 
-  /* AI 검색 박스 */
-  .ai-search-box {
-    background: var(--surface); border-radius: 14px; padding: 18px;
-    border: 1px solid var(--border); margin-bottom: 8px;
-  }
-  .ai-search-row {
-    display: flex; gap: 8px; margin-bottom: 0;
-  }
-  .ai-search-input {
-    flex: 1; background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 10px 12px; font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px; color: var(--text); outline: none; transition: border-color 0.2s;
-  }
-  .ai-search-input:focus { border-color: var(--term); }
-  .ai-search-input::placeholder { color: var(--text2); }
-  .ai-search-btn {
-    background: var(--term); color: white; border: none; border-radius: 8px;
-    padding: 10px 16px; font-family: 'Noto Sans KR', sans-serif; font-size: 13px;
-    font-weight: 700; cursor: pointer; white-space: nowrap; transition: opacity 0.2s;
-  }
-  .ai-search-btn:hover { opacity: 0.85; }
-  .ai-search-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-
-  /* AI 결과 카드 */
-  .ai-result-card {
-    background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(108,122,224,0.06));
-    border: 1px solid rgba(167,139,250,0.25);
-    border-radius: 12px; padding: 16px; margin-top: 12px;
-    animation: fadeIn 0.3s ease;
-  }
-  .ai-result-header {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
-  }
-  .ai-result-term {
-    font-family: 'Noto Serif KR', serif; font-size: 15px; color: var(--term); font-weight: 700;
-  }
-  .ai-result-save-btn {
-    background: none; border: 1px solid var(--term); border-radius: 8px;
-    padding: 4px 12px; font-size: 12px; color: var(--term); cursor: pointer;
-    font-family: 'Noto Sans KR', sans-serif; transition: all 0.2s;
-  }
-  .ai-result-save-btn:hover { background: rgba(167,139,250,0.15); }
-  .ai-result-body {
-    font-size: 13px; color: var(--text); line-height: 1.8; white-space: pre-wrap;
-  }
-  .ai-thinking {
-    display: flex; align-items: center; gap: 10px; padding: 14px 0;
-    font-size: 13px; color: var(--text2);
-  }
-  .ai-thinking-dots span {
-    display: inline-block; width: 5px; height: 5px; border-radius: 50%;
-    background: var(--term); margin: 0 2px;
-    animation: blink 1.2s infinite;
-  }
-  .ai-thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
-  .ai-thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes blink { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
-
-  /* 직접 입력 카드 */
+  /* 입력 카드 */
   .manual-input-card {
     background: var(--surface); border-radius: 14px; padding: 18px;
     border: 1px solid var(--border); margin-bottom: 20px;
@@ -241,7 +176,7 @@
     <button class="tab-btn" onclick="switchTab('trade', this)">매매</button>
     <button class="tab-btn" onclick="switchTab('market', this)">시황</button>
     <button class="tab-btn" onclick="switchTab('analysis', this)">분석</button>
-    <button class="tab-btn" onclick="switchTab('terms', this)">용어</button>
+    <button class="tab-btn" onclick="switchTab('terms', this)">주식공부</button>
   </div>
 
   <!-- 종목 메모 -->
@@ -362,45 +297,33 @@
     <div id="analysisList"><div class="empty-msg">저장된 분석이 없어요.<br>분석 내용을 저장해봐요 🔍</div></div>
   </div>
 
-  <!-- 용어 사전 -->
+  <!-- 주식공부 -->
   <div class="view" id="view-terms">
 
-    <!-- AI 검색 -->
-    <div class="ai-search-box">
-      <div class="sec-title">AI 용어 검색</div>
-      <div class="ai-search-row">
-        <input class="ai-search-input" id="term-query" placeholder="궁금한 용어를 입력해요" onkeydown="if(event.key==='Enter') askTermAI()">
-        <button class="ai-search-btn" id="ai-ask-btn" onclick="askTermAI()">물어보기</button>
-      </div>
-      <div id="ai-result-area"></div>
-    </div>
-
-    <div class="term-divider">직접 입력</div>
-
-    <!-- 직접 입력 -->
+    <!-- 입력 -->
     <div class="manual-input-card">
-      <div class="sec-title">용어 직접 저장</div>
+      <div class="sec-title">주식공부 기록</div>
       <div class="input-row">
-        <label class="input-label">용어</label>
-        <input class="input-field" id="term-word" placeholder="예: 공매도, 이동평균선">
+        <label class="input-label">제목</label>
+        <input class="input-field" id="term-word" placeholder="예: 공매도, 이동평균선, 실전 체크포인트">
       </div>
       <div class="input-row">
-        <label class="input-label">설명</label>
-        <textarea class="input-field" id="term-desc" placeholder="내 언어로 정리한 설명을 적어요" style="min-height:80px;"></textarea>
+        <label class="input-label">내용</label>
+        <textarea class="input-field" id="term-desc" placeholder="공부한 내용을 자유롭게 적어요" style="min-height:100px;"></textarea>
       </div>
       <button class="submit-btn" onclick="saveTermManual()">저장하기</button>
     </div>
 
     <!-- 목록 -->
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-      <div class="sec-title" style="margin:0;">용어 목록</div>
+      <div class="sec-title" style="margin:0;">공부 목록</div>
       <span id="term-count" style="font-size:11px;color:var(--text2);"></span>
     </div>
     <div class="term-search-wrap">
       <span class="term-search-icon">🔍</span>
-      <input class="term-search-filter" id="term-filter" placeholder="저장된 용어 검색" oninput="renderTerms()">
+      <input class="term-search-filter" id="term-filter" placeholder="저장된 내용 검색" oninput="renderTerms()">
     </div>
-    <div id="termList"><div class="empty-msg">저장된 용어가 없어요.<br>AI에게 물어보거나 직접 적어봐요 📚</div></div>
+    <div id="termList"><div class="empty-msg">저장된 공부 내용이 없어요.<br>오늘 배운 것을 기록해봐요 📚</div></div>
   </div>
 </div>
 
@@ -547,87 +470,12 @@
     document.getElementById('a-ticker').value = '';
   };
 
-  // ── 용어 기능 ──
-
-  let aiResultWord = '';
-  let aiResultDesc = '';
-
-  window.askTermAI = async () => {
-    const word = document.getElementById('term-query').value.trim();
-    if (!word) { showToast('용어를 입력해주세요'); return; }
-
-    const btn = document.getElementById('ai-ask-btn');
-    const area = document.getElementById('ai-result-area');
-    btn.disabled = true;
-    btn.textContent = '검색 중...';
-    aiResultWord = '';
-    aiResultDesc = '';
-
-    area.innerHTML = `
-      <div class="ai-thinking">
-        <div class="ai-thinking-dots"><span></span><span></span><span></span></div>
-        <span>${word} 설명 중...</span>
-      </div>`;
-
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          system: `당신은 주식 투자 용어를 쉽게 설명해주는 전문가입니다.
-한국 주식 투자자를 위해, 요청한 용어를 다음 형식으로 설명해주세요:
-
-[용어명]
-(정확한 용어명을 한 줄에)
-
-[설명]
-(3~5문장으로, 개념 + 실제 투자에서 어떻게 쓰이는지 포함. 어렵지 않게, 실용적으로.)
-
-다른 말 없이 위 형식만 출력하세요.`,
-          messages: [{ role: 'user', content: `"${word}" 용어를 설명해주세요.` }]
-        })
-      });
-
-      const json = await res.json();
-      const raw = json.content?.[0]?.text || '';
-
-      // 파싱
-      const wordMatch = raw.match(/\[용어명\]\s*\n([^\n\[]+)/);
-      const descMatch = raw.match(/\[설명\]\s*\n([\s\S]+)/);
-      aiResultWord = wordMatch ? wordMatch[1].trim() : word;
-      aiResultDesc = descMatch ? descMatch[1].trim() : raw.trim();
-
-      area.innerHTML = `
-        <div class="ai-result-card">
-          <div class="ai-result-header">
-            <span class="ai-result-term">${aiResultWord}</span>
-            <button class="ai-result-save-btn" onclick="saveTermFromAI()">저장하기</button>
-          </div>
-          <div class="ai-result-body">${aiResultDesc}</div>
-        </div>`;
-    } catch(e) {
-      area.innerHTML = `<div class="ai-thinking" style="color:#ef5350;">오류가 발생했어요. 다시 시도해주세요.</div>`;
-    }
-
-    btn.disabled = false;
-    btn.textContent = '물어보기';
-  };
-
-  window.saveTermFromAI = async () => {
-    if (!aiResultWord || !aiResultDesc) return;
-    await saveItem('terms', { word: aiResultWord, desc: aiResultDesc, source: 'ai' });
-    document.getElementById('ai-result-area').innerHTML = '';
-    document.getElementById('term-query').value = '';
-    aiResultWord = '';
-    aiResultDesc = '';
-  };
+  // ── 주식공부 기능 ──
 
   window.saveTermManual = () => {
     const word = document.getElementById('term-word').value.trim();
     const desc = document.getElementById('term-desc').value.trim();
-    if (!word || !desc) { showToast('용어와 설명을 모두 입력해주세요'); return; }
+    if (!word || !desc) { showToast('제목과 내용을 모두 입력해주세요'); return; }
     saveItem('terms', { word, desc, source: 'manual' });
     document.getElementById('term-word').value = '';
     document.getElementById('term-desc').value = '';
@@ -645,18 +493,15 @@
     const tc = document.getElementById('termList');
     if (!list.length) {
       tc.innerHTML = filter
-        ? `<div class="empty-msg">"${filter}"에 해당하는 용어가 없어요.</div>`
-        : `<div class="empty-msg">저장된 용어가 없어요.<br>AI에게 물어보거나 직접 적어봐요 📚</div>`;
+        ? `<div class="empty-msg">"${filter}"에 해당하는 내용이 없어요.</div>`
+        : `<div class="empty-msg">저장된 공부 내용이 없어요.<br>오늘 배운 것을 기록해봐요 📚</div>`;
       return;
     }
     tc.innerHTML = list.map(e => `
       <div class="term-entry-card">
         <div class="entry-header">
           <span class="term-entry-word">${e.word}</span>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span class="term-entry-source ${e.source === 'manual' ? 'manual' : ''}">${e.source === 'ai' ? 'AI' : '직접'}</span>
-            <button class="entry-del" onclick="deleteItem('terms','${e.id}')">×</button>
-          </div>
+          <button class="entry-del" onclick="deleteItem('terms','${e.id}')">×</button>
         </div>
         <div class="term-entry-desc">${e.desc}</div>
       </div>`).join('');
