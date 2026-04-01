@@ -557,38 +557,41 @@
   }
 
   function loadForm() {
-    const d = allData[mk()] || {};
-    // 빈 달이면 요약 초기화
-    if (!allData[mk()]) {
-      document.getElementById('s-income').textContent = '-';
-      document.getElementById('s-expense').textContent = '-';
-      document.getElementById('s-remain').textContent = '-';
-      document.getElementById('t-income').textContent = '0';
-      document.getElementById('t-a').textContent = '0';
-      document.getElementById('t-b').textContent = '0';
-      document.getElementById('t-card').textContent = '0';
-    }
+    const saved = allData[mk()];
+    const d = saved || {};
     const DEFAULTS = {e_food:1000000,e_wolse:630000,e_ins:365315,e_fam:100000,e_med:100000,e_ins1:141583,e_ins2:27669,e_silbi:86533,e_samsung:12600};
-    FIELDS.forEach(f => { 
-      const el = document.getElementById(f); 
-      if(el) { 
-        const key = f.replace(/-/g,'_');
-        const raw = d[key] !== undefined ? d[key] : (DEFAULTS[key] !== undefined ? DEFAULTS[key] : '');
-        el.value = (raw !== '' && raw !== 0) ? parseInt(raw).toLocaleString('ko-KR') : (DEFAULTS[key] ? parseInt(DEFAULTS[key]).toLocaleString('ko-KR') : '');
-      } 
+
+    FIELDS.forEach(f => {
+      const el = document.getElementById(f);
+      if (!el) return;
+      const key = f.replace(/-/g,'_');
+      let val;
+      if (saved) {
+        // 저장된 달: 저장값 사용 (0이면 0)
+        val = d[key] !== undefined ? d[key] : (DEFAULTS[key] || 0);
+      } else {
+        // 저장 안 된 달: 기본값만
+        val = DEFAULTS[key] || 0;
+      }
+      el.value = val ? parseInt(val).toLocaleString('ko-KR') : '';
     });
-    MEMO_FIELDS.forEach(f => { const el = document.getElementById(f); if(el) el.value = d[f.replace(/-/g,'_')] || ''; });
+
+    MEMO_FIELDS.forEach(f => {
+      const el = document.getElementById(f);
+      if (el) el.value = d[f.replace(/-/g,'_')] || '';
+    });
+
     extraInc = d.extraInc || [];
     renderExtraInc();
     if (d.extraIncValues) {
       extraInc.forEach(item => {
         const el = document.getElementById('i-extra-'+item.id);
-        if(el) el.value = d.extraIncValues[item.id] || '';
+        if (el) el.value = d.extraIncValues[item.id] || '';
         const mel = document.getElementById('i-extra-'+item.id+'-m');
-        if(mel) mel.value = d.extraIncMemos?.[item.id] || '';
+        if (mel) mel.value = d.extraIncMemos?.[item.id] || '';
       });
     }
-    setTimeout(() => { calc(); }, 200);
+    calc();
   }
 
   window.saveMonth = async () => {
