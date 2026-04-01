@@ -52,11 +52,13 @@
   .item-row:last-child { border-bottom: none; }
   .item-left { display: flex; align-items: center; gap: 6px; flex: 1; }
   .item-name { font-size: 14px; color: var(--text); }
-  .item-right { display: flex; align-items: center; gap: 6px; }
-  .amount-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--text); width: 130px; text-align: right; outline: none; }
+  .item-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .amount-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--text); width: 120px; text-align: right; outline: none; }
   .amount-input:focus { border-color: var(--accent); }
   .amount-input::placeholder { color: var(--text2); font-size: 12px; }
   .won { font-size: 12px; color: var(--text2); white-space: nowrap; }
+  .date-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 12px; color: var(--text2); width: 105px; outline: none; }
+  .date-input:focus { border-color: var(--accent); }
   textarea.memo-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--text); resize: none; outline: none; min-height: 90px; line-height: 1.7; }
   textarea.memo-input:focus { border-color: var(--accent); }
   textarea.memo-input::placeholder { color: var(--text2); }
@@ -171,65 +173,74 @@
         <div class="section-title">💸 총 지출</div>
         <div class="section-total">합계 <span id="total-expense">0</span>원</div>
       </div>
-      <div class="item-row">
+      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
         <div class="item-left"><span class="item-name">🍚 식비</span></div>
         <div class="item-right">
+          <input class="date-input" type="date" id="exp-food-date">
           <input class="amount-input" type="number" id="exp-food" placeholder="1,000,000" oninput="updateSummary()">
           <span class="won">원</span>
         </div>
       </div>
-      <div class="item-row">
+      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
         <div class="item-left"><span class="item-name">월세</span></div>
         <div class="item-right">
+          <input class="date-input" type="date" id="exp-rent-date">
           <input class="amount-input" type="number" id="exp-rent" placeholder="0" oninput="updateSummary()">
           <span class="won">원</span>
         </div>
       </div>
-      <div class="item-row">
+      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
         <div class="item-left"><span class="item-name">보험료</span></div>
         <div class="item-right">
+          <input class="date-input" type="date" id="exp-insurance-date">
           <input class="amount-input" type="number" id="exp-insurance" placeholder="0" oninput="updateSummary()">
           <span class="won">원</span>
         </div>
       </div>
-      <div class="item-row">
+      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
         <div class="item-left"><span class="item-name">가족계</span></div>
         <div class="item-right">
+          <input class="date-input" type="date" id="exp-family-date">
           <input class="amount-input" type="number" id="exp-family" placeholder="0" oninput="updateSummary()">
           <span class="won">원</span>
         </div>
       </div>
-      <div class="item-row">
+      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
         <div class="item-left"><span class="item-name">용돈</span></div>
         <div class="item-right">
+          <input class="date-input" type="date" id="exp-allowance-date">
           <input class="amount-input" type="number" id="exp-allowance" placeholder="0" oninput="updateSummary()">
           <span class="won">원</span>
         </div>
       </div>
-      <div class="item-row">
+      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
         <div class="item-left"><span class="item-name">병원비</span></div>
         <div class="item-right">
+          <input class="date-input" type="date" id="exp-medical-date">
           <input class="amount-input" type="number" id="exp-medical" placeholder="0" oninput="updateSummary()">
           <span class="won">원</span>
         </div>
       </div>
-      <div class="item-row">
+      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
         <div class="item-left"><span class="item-name">문화비</span></div>
         <div class="item-right">
+          <input class="date-input" type="date" id="exp-culture-date">
           <input class="amount-input" type="number" id="exp-culture" placeholder="0" oninput="updateSummary()">
           <span class="won">원</span>
         </div>
       </div>
-      <div class="item-row">
+      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
         <div class="item-left"><span class="item-name">대출상환 (아파트)</span></div>
         <div class="item-right">
+          <input class="date-input" type="date" id="exp-loan1-date">
           <input class="amount-input" type="number" id="exp-loan1" placeholder="0" oninput="updateSummary()">
           <span class="won">원</span>
         </div>
       </div>
-      <div class="item-row">
+      <div class="item-row" style="flex-wrap:wrap;gap:6px;">
         <div class="item-left"><span class="item-name">대출상환 (자동차)</span></div>
         <div class="item-right">
+          <input class="date-input" type="date" id="exp-loan2-date">
           <input class="amount-input" type="number" id="exp-loan2" placeholder="0" oninput="updateSummary()">
           <span class="won">원</span>
         </div>
@@ -431,6 +442,16 @@
     setVal('exp-variable', d.expVariable);
     setVal('memo-variable', d.memoVariable);
     setVal('memo-month', d.memoMonth);
+    const setDate = (id, v) => { const el = document.getElementById(id); if(el && v) el.value = v; };
+    setDate('exp-food-date', d.expFoodDate);
+    setDate('exp-rent-date', d.expRentDate);
+    setDate('exp-insurance-date', d.expInsuranceDate);
+    setDate('exp-family-date', d.expFamilyDate);
+    setDate('exp-allowance-date', d.expAllowanceDate);
+    setDate('exp-medical-date', d.expMedicalDate);
+    setDate('exp-culture-date', d.expCultureDate);
+    setDate('exp-loan1-date', d.expLoan1Date);
+    setDate('exp-loan2-date', d.expLoan2Date);
     extraIncomeItems = d.extraIncome || [];
     renderExtraIncome();
     // 추가 수입 값 복원
@@ -459,6 +480,15 @@
       expFamily: val('exp-family'), expAllowance: val('exp-allowance'), expMedical: val('exp-medical'),
       expCulture: val('exp-culture'), expLoan1: val('exp-loan1'), expLoan2: val('exp-loan2'),
       expVariable: val('exp-variable'),
+      expFoodDate: document.getElementById('exp-food-date')?.value||'',
+      expRentDate: document.getElementById('exp-rent-date')?.value||'',
+      expInsuranceDate: document.getElementById('exp-insurance-date')?.value||'',
+      expFamilyDate: document.getElementById('exp-family-date')?.value||'',
+      expAllowanceDate: document.getElementById('exp-allowance-date')?.value||'',
+      expMedicalDate: document.getElementById('exp-medical-date')?.value||'',
+      expCultureDate: document.getElementById('exp-culture-date')?.value||'',
+      expLoan1Date: document.getElementById('exp-loan1-date')?.value||'',
+      expLoan2Date: document.getElementById('exp-loan2-date')?.value||'',
       memoVariable: document.getElementById('memo-variable').value,
       memoMonth: document.getElementById('memo-month').value,
       extraIncome: extraIncomeItems, extraIncomeValues,
