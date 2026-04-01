@@ -136,11 +136,34 @@
   </div>
 
   <div class="view active" id="view-record">
-    <div class="food-fixed">
-      <span class="food-fixed-label">🍚 식비 (고정)</span>
-      <span class="food-fixed-amount">1,000,000원</span>
+    <!-- 수입 -->
+    <div class="cat-group" style="background:white;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:12px;">
+      <div class="cat-group-title">💵 수입</div>
+      <div class="item-row">
+        <div class="item-name">총 수입</div>
+        <div class="item-right">
+          <input class="amount-input" type="number" placeholder="0" id="income-input">
+          <span class="won">원</span>
+        </div>
+      </div>
+    </div>
+    <!-- 식비 -->
+    <div class="cat-group" style="background:white;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:12px;">
+      <div class="cat-group-title">🍚 식비</div>
+      <div class="item-row">
+        <div class="item-name">식비</div>
+        <div class="item-right">
+          <input class="amount-input" type="number" placeholder="1000000" id="food-input">
+          <span class="won">원</span>
+        </div>
+      </div>
     </div>
     <div id="itemGroups"></div>
+    <!-- 메모 -->
+    <div class="cat-group" style="background:white;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:12px;">
+      <div class="cat-group-title">📝 이번 달 메모</div>
+      <textarea class="amount-input" id="month-memo" placeholder="이번 달 특이사항, 이슈 등을 적어요" style="width:100%;height:80px;text-align:left;resize:none;line-height:1.6;"></textarea>
+    </div>
     <button class="save-month-btn" onclick="saveMonth()">이번 달 저장하기</button>
   </div>
 
@@ -295,9 +318,19 @@
 
   function renderRecord() {
     const amounts = getAmountsForMonth(monthKey());
-    const container = document.getElementById('itemGroups');
+    const md = allMonthData[monthKey()];
+    const container = document.getElementById("itemGroups");
+    // 수입/식비/메모 값 복원
+    setTimeout(() => {
+      const fi = document.getElementById("food-input");
+      const ii = document.getElementById("income-input");
+      const mi = document.getElementById("month-memo");
+      if (fi) fi.value = md?.food || "";
+      if (ii) ii.value = md?.income || "";
+      if (mi) mi.value = md?.memo || "";
+    }, 50);
     container.innerHTML = currentTemplate.map((group, gi) => `
-      <div class="cat-group">
+      <div class="cat-group" style="background:white;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:12px;">
         <div class="cat-group-title">${group.name}</div>
         ${group.items.map((item, ii) => `
           <div class="item-row" id="row-${gi}-${ii}">
@@ -308,16 +341,16 @@
             </div>
             <div class="item-right">
               <input class="amount-input" type="number" placeholder="0"
-                value="${amounts[gi+'-'+ii] || ''}"
+                value="${amounts[gi+"-"+ii] || ""}"
                 id="amt-${gi}-${ii}"
                 onchange="onAmountChange(${gi},${ii},this.value)">
               <span class="won">원</span>
             </div>
           </div>
-        `).join('')}
+        `).join("")}
         <button class="add-item-btn" onclick="addItem(${gi})">+ 항목 추가</button>
       </div>
-    `).join('');
+    `).join("");
   }
 
   window.editName = (gi, ii) => {
@@ -351,21 +384,24 @@
 
   window.saveMonth = async () => {
     const amounts = {};
-    let total = 1000000; // 식비 고정
+    const food = parseInt(document.getElementById("food-input")?.value || "1000000") || 1000000;
+    const income = parseInt(document.getElementById("income-input")?.value || "0") || 0;
+    const memo = document.getElementById("month-memo")?.value || "";
+    let total = food;
     currentTemplate.forEach((group, gi) => {
       group.items.forEach((item, ii) => {
-        const v = parseInt(document.getElementById(`amt-${gi}-${ii}`)?.value || '0') || 0;
-        amounts[gi+'-'+ii] = v;
+        const v = parseInt(document.getElementById(`amt-${gi}-${ii}`)?.value || "0") || 0;
+        amounts[gi+"-"+ii] = v;
         total += v;
       });
     });
     try {
-      await setDoc(doc(db, 'budget_months', currentUser.uid + '_' + monthKey()), {
-        uid: currentUser.uid, monthKey: monthKey(), year: curYear, month: curMonth, amounts, total
+      await setDoc(doc(db, "budget_months", currentUser.uid + "_" + monthKey()), {
+        uid: currentUser.uid, monthKey: monthKey(), year: curYear, month: curMonth, amounts, total, food, income, memo
       });
-      allMonthData[monthKey()] = { uid: currentUser.uid, monthKey: monthKey(), year: curYear, month: curMonth, amounts, total };
+      allMonthData[monthKey()] = { uid: currentUser.uid, monthKey: monthKey(), year: curYear, month: curMonth, amounts, total, food, income, memo };
       showToast(`${curYear}년 ${curMonth}월 저장됐어요 ✦`);
-    } catch(e) { showToast('저장 오류: ' + e.message); }
+    } catch(e) { showToast("저장 오류: " + e.message); }
   };
 
   window.changeMonth = (dir) => {
