@@ -465,7 +465,7 @@
   }
 
   window.calc = () => {
-    const income = v('i-shop') + v('i-rent') + extraInc.reduce((s,i) => s+(parseInt(document.getElementById('i-extra-'+i.id)?.value||'0')||0), 0);
+    const income = v('i-shop') + v('i-rent') + extraInc.reduce((s,i) => s+(parseInt((document.getElementById('i-extra-'+i.id)?.value||'0').replace(/,/g,''))||0), 0);
     const cardTotal = CARD_FIELDS.reduce((s,f) => s+v(f), 0);
     const aTotal = A_FIELDS.reduce((s,f) => s+v(f), 0);
     const bTotal = B_FIELDS.reduce((s,f) => s+v(f), 0);
