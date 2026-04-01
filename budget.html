@@ -563,8 +563,8 @@
       const el = document.getElementById(f); 
       if(el) { 
         const key = f.replace(/-/g,'_');
-        const val = d[key] !== undefined ? d[key] : (DEFAULTS[key] || 0);
-        el.value = val ? parseInt(val).toLocaleString('ko-KR') : '';
+        const raw = d[key] !== undefined ? d[key] : (DEFAULTS[key] !== undefined ? DEFAULTS[key] : '');
+        el.value = (raw !== '' && raw !== 0) ? parseInt(raw).toLocaleString('ko-KR') : (DEFAULTS[key] ? parseInt(DEFAULTS[key]).toLocaleString('ko-KR') : '');
       } 
     });
     MEMO_FIELDS.forEach(f => { const el = document.getElementById(f); if(el) el.value = d[f.replace(/-/g,'_')] || ''; });
@@ -578,7 +578,7 @@
         if(mel) mel.value = d.extraIncMemos?.[item.id] || '';
       });
     }
-    setTimeout(() => calc(), 100);
+    setTimeout(() => { calc(); }, 200);
   }
 
   window.saveMonth = async () => {
