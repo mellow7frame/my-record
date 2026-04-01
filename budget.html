@@ -591,7 +591,40 @@
         if (mel) mel.value = d.extraIncMemos?.[item.id] || '';
       });
     }
-    calc();
+
+    // 저장된 데이터면 저장값으로 직접 요약 표시
+    if (saved) {
+      const inc = saved.totalIncome || 0;
+      const exp = saved.totalExpense || 0;
+      const rem = saved.remain || 0;
+      const card = saved.cardTotal || 0;
+      const aFields = ['e_food','e_wolse','e_ph1','e_ph2','e_ph3','e_tv','e_elec','e_nf','e_gas','e_mgmt','e_edu','e_trans','e_var1','e_ins','e_fam','e_med'];
+      const bFields = ['e_loan1','e_loan2','e_water','e_ph0','e_ins1','e_ins2','e_silbi','e_samsung','e_var2'];
+      const aTotal = aFields.reduce((s,f) => s+(saved[f]||0), 0);
+      const bTotal = bFields.reduce((s,f) => s+(saved[f]||0), 0);
+      document.getElementById('t-income').textContent = fmt(inc);
+      document.getElementById('t-card').textContent = fmt(card);
+      document.getElementById('t-a').textContent = fmt(aTotal);
+      document.getElementById('t-b').textContent = fmt(bTotal);
+      document.getElementById('s-income').textContent = fmt(inc)+'원';
+      document.getElementById('s-expense').textContent = fmt(exp)+'원';
+      document.getElementById('s-remain').textContent = fmt(rem)+'원';
+      document.getElementById('s-remain').style.color = rem >= 0 ? 'var(--down)' : 'var(--up)';
+    } else {
+      // 새 달: 기본값으로 계산
+      const DEFS = {e_food:1000000,e_wolse:630000,e_ins:365315,e_fam:100000,e_med:100000,e_ins1:141583,e_ins2:27669,e_silbi:86533,e_samsung:12600};
+      const aFields = ['e_food','e_wolse','e_ins','e_fam','e_med'];
+      const bFields = ['e_ins1','e_ins2','e_silbi','e_samsung'];
+      const aTotal = aFields.reduce((s,f) => s+(DEFS[f]||0), 0);
+      const bTotal = bFields.reduce((s,f) => s+(DEFS[f]||0), 0);
+      document.getElementById('t-income').textContent = '0';
+      document.getElementById('t-card').textContent = '0';
+      document.getElementById('t-a').textContent = fmt(aTotal);
+      document.getElementById('t-b').textContent = fmt(bTotal);
+      document.getElementById('s-income').textContent = '-';
+      document.getElementById('s-expense').textContent = fmt(aTotal+bTotal)+'원';
+      document.getElementById('s-remain').textContent = '-';
+    }
   }
 
   window.saveMonth = async () => {
