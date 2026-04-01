@@ -5,7 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>가계부</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+const TEMP_KEY = 'budget_temp_v1';
+
+function autoSaveLocal() {
+  const data = {};
+  FIELDS.forEach(f => { data[f] = document.getElementById(f)?.value || ''; });
+  MEMO_FIELDS.forEach(f => { data[f] = document.getElementById(f)?.value || ''; });
+  localStorage.setItem(TEMP_KEY, JSON.stringify(data));
+}
+
+function loadLocal() {
+  const raw = localStorage.getItem(TEMP_KEY);
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  FIELDS.forEach(f => { if (data[f] !== undefined) document.getElementById(f).value = data[f]; });
+  MEMO_FIELDS.forEach(f => { if (data[f] !== undefined) document.getElementById(f).value = data[f]; });
+}
+
+</script>
 <style>
   :root {
     --bg: #faf8f5; --surface: #ffffff; --surface2: #f5f2ee;
@@ -499,6 +517,8 @@
     document.getElementById('s-expense').textContent = fmt(expense)+'원';
     document.getElementById('s-remain').textContent = fmt(remain)+'원';
     document.getElementById('s-remain').style.color = remain >= 0 ? 'var(--down)' : 'var(--up)';
+
+    autoSaveLocal();
   };
 
   window.addInc = () => {
@@ -610,6 +630,9 @@
       document.getElementById('s-expense').textContent = fmt(exp)+'원';
       document.getElementById('s-remain').textContent = fmt(rem)+'원';
       document.getElementById('s-remain').style.color = rem >= 0 ? 'var(--down)' : 'var(--up)';
+    loadLocal();
+    calc();
+
     } else {
       // 새 달: 기본값으로 계산
       const DEFS = {e_food:1000000,e_wolse:630000,e_ins:365315,e_fam:100000,e_med:100000,e_ins1:141583,e_ins2:27669,e_silbi:86533,e_samsung:12600};
@@ -738,6 +761,24 @@
       return `<div class="stat-row"><span class="stat-name">${item.name}</span><div class="stat-r"><span class="stat-amt">${fmt(item.cur)}원</span>${ds}</div></div>`;
     }).join('');
   }
+
+const TEMP_KEY = 'budget_temp_v1';
+
+function autoSaveLocal() {
+  const data = {};
+  FIELDS.forEach(f => { data[f] = document.getElementById(f)?.value || ''; });
+  MEMO_FIELDS.forEach(f => { data[f] = document.getElementById(f)?.value || ''; });
+  localStorage.setItem(TEMP_KEY, JSON.stringify(data));
+}
+
+function loadLocal() {
+  const raw = localStorage.getItem(TEMP_KEY);
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  FIELDS.forEach(f => { if (data[f] !== undefined) document.getElementById(f).value = data[f]; });
+  MEMO_FIELDS.forEach(f => { if (data[f] !== undefined) document.getElementById(f).value = data[f]; });
+}
+
 </script>
 </body>
 </html>
