@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주식 기록장</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #222538;
+    --border: #2a2d3e;
+    --up: #ef5350;
+    --down: #26a69a;
+    --gold: #f0b429;
+    --text: #e8eaf0;
+    --text2: #8b90a8;
+    --accent: #6c7ae0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: 'Noto Sans KR', sans-serif; color: var(--text); min-height: 100vh; }
+  .app { max-width: 480px; margin: 0 auto; padding: 0 0 80px; min-height: 100vh; }
+
+  /* Login */
+  .login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 24px; text-align: center; }
+  .login-logo { font-size: 40px; margin-bottom: 16px; }
+  .login-title { font-family: 'Noto Serif KR', serif; font-size: 22px; color: var(--gold); margin-bottom: 6px; letter-spacing: 1px; }
+  .login-sub { font-size: 13px; color: var(--text2); line-height: 1.8; margin-bottom: 40px; }
+  .google-btn { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 14px 28px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--text); cursor: pointer; transition: all 0.2s; font-weight: 500; }
+  .google-btn:hover { border-color: var(--accent); }
+  .google-logo { width: 20px; height: 20px; }
+
+  /* Header */
+  .header { padding: 28px 20px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+  .header-left h1 { font-family: 'Noto Serif KR', serif; font-size: 18px; color: var(--gold); letter-spacing: 1px; }
+  .header-left p { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .header-right { display: flex; align-items: center; gap: 8px; }
+  .user-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border); }
+  .logout-btn { background: none; border: 1px solid var(--border); border-radius: 10px; padding: 4px 10px; font-size: 11px; color: var(--text2); cursor: pointer; font-family: 'Noto Sans KR', sans-serif; }
+
+  /* Tab */
+  .tab-nav { display: flex; padding: 12px 20px 0; gap: 4px; border-bottom: 1px solid var(--border); }
+  .tab-btn { padding: 8px 16px; border: none; background: transparent; font-family: 'Noto Sans KR', sans-serif; font-size: 13px; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 500; }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* Views */
+  .view { display: none; padding: 20px; }
+  .view.active { display: block; }
+
+  /* Section title */
+  .sec-title { font-size: 11px; color: var(--text2); letter-spacing: 2px; font-weight: 700; margin-bottom: 12px; }
+
+  /* Input card */
+  .input-card { background: var(--surface); border-radius: 14px; padding: 18px; border: 1px solid var(--border); margin-bottom: 20px; }
+  .input-row { margin-bottom: 12px; }
+  .input-label { font-size: 11px; color: var(--text2); margin-bottom: 6px; display: block; }
+  .input-field { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.2s; }
+  .input-field:focus { border-color: var(--accent); }
+  .input-field::placeholder { color: var(--text2); }
+  textarea.input-field { resize: none; min-height: 70px; line-height: 1.6; }
+  .input-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .tag-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tag { padding: 5px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text2); font-family: 'Noto Sans KR', sans-serif; transition: all 0.2s; }
+  .tag.up.active { background: var(--up); border-color: var(--up); color: white; }
+  .tag.down.active { background: var(--down); border-color: var(--down); color: white; }
+  .tag.neutral.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .submit-btn { width: 100%; background: var(--accent); color: white; border: none; border-radius: 10px; padding: 12px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+  .submit-btn:hover { opacity: 0.9; }
+
+  /* Entry cards */
+  .entry-card { background: var(--surface); border-radius: 14px; padding: 16px; border: 1px solid var(--border); margin-bottom: 12px; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+  .entry-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .entry-ticker { font-family: 'Noto Serif KR', serif; font-size: 15px; color: var(--gold); font-weight: 700; }
+  .entry-date { font-size: 11px; color: var(--text2); }
+  .entry-badge { font-size: 11px; padding: 3px 8px; border-radius: 10px; font-weight: 700; }
+  .badge-up { background: rgba(239,83,80,0.15); color: var(--up); }
+  .badge-down { background: rgba(38,166,154,0.15); color: var(--down); }
+  .badge-neutral { background: rgba(108,122,224,0.15); color: var(--accent); }
+  .entry-body { font-size: 13px; color: var(--text); line-height: 1.7; white-space: pre-wrap; }
+  .entry-meta { display: flex; gap: 12px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .entry-meta-item { font-size: 11px; color: var(--text2); }
+  .entry-meta-val { color: var(--text); font-weight: 500; }
+  .entry-del { background: none; border: none; color: var(--border); cursor: pointer; font-size: 16px; }
+  .entry-del:hover { color: var(--text2); }
+
+  .empty-msg { text-align: center; padding: 40px 20px; color: var(--text2); font-size: 13px; line-height: 2; }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--surface2); color: var(--text); padding: 10px 20px; border-radius: 20px; font-size: 13px; opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap; z-index: 100; border: 1px solid var(--border); }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  select.input-field { appearance: none; }
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-logo">📈</div>
+  <div class="login-title">주식 기록장</div>
+  <div class="login-sub">종목 메모, 매매일지, 시황, 분석을<br>한 곳에 기록해요.</div>
+  <button class="google-btn" onclick="signInWithGoogle()">
+    <svg class="google-logo" viewBox="0 0 24 24">
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+    </svg>
+    Google로 시작하기
+  </button>
+</div>
+
+<!-- Main -->
+<div id="mainApp" class="app" style="display:none;">
+  <div class="header">
+    <div class="header-left">
+      <h1>주식 기록장</h1>
+      <p id="headerDate"></p>
+    </div>
+    <div class="header-right">
+      <img class="user-avatar" id="userAvatar" src="" alt="" style="display:none;">
+      <button class="logout-btn" onclick="signOut()">로그아웃</button>
+    </div>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('stock')">종목</button>
+    <button class="tab-btn" onclick="switchTab('trade')">매매</button>
+    <button class="tab-btn" onclick="switchTab('market')">시황</button>
+    <button class="tab-btn" onclick="switchTab('analysis')">분석</button>
+  </div>
+
+  <!-- 종목 메모 -->
+  <div class="view active" id="view-stock">
+    <div class="input-card">
+      <div class="sec-title">종목 메모</div>
+      <div class="input-row-2">
+        <div class="input-row" style="margin:0">
+          <label class="input-label">종목명/코드</label>
+          <input class="input-field" id="s-ticker" placeholder="예: 삼성전자">
+        </div>
+        <div class="input-row" style="margin:0">
+          <label class="input-label">목표가</label>
+          <input class="input-field" id="s-target" placeholder="예: 85,000">
+        </div>
+      </div>
+      <div class="input-row">
+        <label class="input-label">매수 이유</label>
+        <textarea class="input-field" id="s-reason" placeholder="매수 이유를 적어요"></textarea>
+      </div>
+      <div class="input-row">
+        <label class="input-label">추가 메모</label>
+        <textarea class="input-field" id="s-memo" placeholder="리스크, 모니터링 포인트 등"></textarea>
+      </div>
+      <button class="submit-btn" onclick="saveStock()">기록하기</button>
+    </div>
+    <div class="sec-title">기록 목록</div>
+    <div id="stockList"><div class="empty-msg">종목 메모가 없어요.<br>첫 번째 종목을 기록해봐요 📝</div></div>
+  </div>
+
+  <!-- 매매일지 -->
+  <div class="view" id="view-trade">
+    <div class="input-card">
+      <div class="sec-title">매매일지</div>
+      <div class="input-row-2">
+        <div class="input-row" style="margin:0">
+          <label class="input-label">종목명</label>
+          <input class="input-field" id="t-ticker" placeholder="예: 삼성전자">
+        </div>
+        <div class="input-row" style="margin:0">
+          <label class="input-label">날짜</label>
+          <input class="input-field" id="t-date" type="date">
+        </div>
+      </div>
+      <div class="tag-row">
+        <button class="tag up" id="tag-buy" onclick="selectTradeType('매수')">매수</button>
+        <button class="tag down" id="tag-sell" onclick="selectTradeType('매도')">매도</button>
+        <button class="tag neutral" id="tag-watch" onclick="selectTradeType('관망')">관망</button>
+      </div>
+      <div class="input-row-2">
+        <div class="input-row" style="margin:0">
+          <label class="input-label">가격</label>
+          <input class="input-field" id="t-price" placeholder="예: 72,000">
+        </div>
+        <div class="input-row" style="margin:0">
+          <label class="input-label">수량</label>
+          <input class="input-field" id="t-qty" placeholder="예: 10">
+        </div>
+      </div>
+      <div class="input-row">
+        <label class="input-label">매매 이유</label>
+        <textarea class="input-field" id="t-reason" placeholder="왜 이 결정을 했는지 적어요"></textarea>
+      </div>
+      <button class="submit-btn" onclick="saveTrade()">기록하기</button>
+    </div>
+    <div class="sec-title">매매 기록</div>
+    <div id="tradeList"><div class="empty-msg">매매 기록이 없어요.<br>첫 번째 매매를 기록해봐요 💹</div></div>
+  </div>
+
+  <!-- 시황 메모 -->
+  <div class="view" id="view-market">
+    <div class="input-card">
+      <div class="sec-title">시황 메모</div>
+      <div class="input-row-2">
+        <div class="input-row" style="margin:0">
+          <label class="input-label">날짜</label>
+          <input class="input-field" id="m-date" type="date">
+        </div>
+        <div class="input-row" style="margin:0">
+          <label class="input-label">시장 분위기</label>
+          <select class="input-field" id="m-mood">
+            <option value="상승">📈 상승</option>
+            <option value="하락">📉 하락</option>
+            <option value="혼조">↔️ 혼조</option>
+            <option value="관망">⏸️ 관망</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-row">
+        <label class="input-label">시황 메모</label>
+        <textarea class="input-field" id="m-memo" placeholder="오늘 시장 흐름, 주요 이슈, 섹터 동향 등" style="min-height:100px;"></textarea>
+      </div>
+      <button class="submit-btn" onclick="saveMarket()">기록하기</button>
+    </div>
+    <div class="sec-title">시황 기록</div>
+    <div id="marketList"><div class="empty-msg">시황 기록이 없어요.<br>오늘 시장 흐름을 적어봐요 🌐</div></div>
+  </div>
+
+  <!-- 분석 저장 -->
+  <div class="view" id="view-analysis">
+    <div class="input-card">
+      <div class="sec-title">Claude 분석 저장</div>
+      <div class="input-row">
+        <label class="input-label">제목</label>
+        <input class="input-field" id="a-title" placeholder="예: 삼성전자 2026 Q1 분석">
+      </div>
+      <div class="input-row">
+        <label class="input-label">분석 내용</label>
+        <textarea class="input-field" id="a-content" placeholder="Claude와 나눈 분석 내용을 붙여넣거나 직접 적어요" style="min-height:120px;"></textarea>
+      </div>
+      <div class="input-row">
+        <label class="input-label">관련 종목</label>
+        <input class="input-field" id="a-ticker" placeholder="예: 삼성전자, 삼성SDI">
+      </div>
+      <button class="submit-btn" onclick="saveAnalysis()">저장하기</button>
+    </div>
+    <div class="sec-title">분석 목록</div>
+    <div id="analysisList"><div class="empty-msg">저장된 분석이 없어요.<br>분석 내용을 저장해봐요 🔍</div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut as fbSignOut } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+  import { getFirestore, collection, addDoc, deleteDoc, doc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDBT7TGCQbi3TDXId_49_ZxS9__Jxm7yeY",
+    authDomain: "my-recordmy.firebaseapp.com",
+    projectId: "my-recordmy",
+    storageBucket: "my-recordmy.firebasestorage.app",
+    messagingSenderId: "631824484897",
+    appId: "1:631824484897:web:8c3c86acd25a39144d7160"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+
+  let currentUser = null;
+  let tradeType = '매수';
+  let data = { stock: [], trade: [], market: [], analysis: [] };
+
+  // Set today's date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('t-date').value = today;
+  document.getElementById('m-date').value = today;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  function updateHeaderDate() {
+    const d = new Date();
+    const days = ['일','월','화','수','목','금','토'];
+    document.getElementById('headerDate').textContent = `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()} ${days[d.getDay()]}요일`;
+  }
+
+  window.signInWithGoogle = async () => {
+    try { await signInWithPopup(auth, provider); }
+    catch(e) { showToast('로그인 실패'); }
+  };
+  window.signOut = async () => { await fbSignOut(auth); };
+
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      currentUser = user;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('mainApp').style.display = 'block';
+      const av = document.getElementById('userAvatar');
+      if (user.photoURL) { av.src = user.photoURL; av.style.display = 'block'; }
+      updateHeaderDate();
+      await loadAll();
+      renderAll();
+    } else {
+      currentUser = null;
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('mainApp').style.display = 'none';
+    }
+  });
+
+  async function loadAll() {
+    if (!currentUser) return;
+    for (const type of ['stock','trade','market','analysis']) {
+      try {
+        const q = query(collection(db, 'stock_'+type), where('uid','==',currentUser.uid));
+        const snap = await getDocs(q);
+        data[type] = [];
+        snap.forEach(ds => data[type].push({ id: ds.id, ...ds.data() }));
+        data[type].sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+      } catch(e) {}
+    }
+  }
+
+  async function saveItem(type, item) {
+    if (!currentUser) return;
+    try {
+      const ref = await addDoc(collection(db, 'stock_'+type), { uid: currentUser.uid, createdAt: new Date(), ...item });
+      data[type].unshift({ id: ref.id, uid: currentUser.uid, ...item });
+      renderAll();
+      showToast('저장됐어요 ✦');
+    } catch(e) { showToast('저장 오류: ' + e.message); }
+  }
+
+  window.deleteItem = async (type, id) => {
+    try {
+      await deleteDoc(doc(db, 'stock_'+type, id));
+      data[type] = data[type].filter(i => i.id !== id);
+      renderAll();
+    } catch(e) { showToast('삭제 오류'); }
+  };
+
+  window.saveStock = () => {
+    const ticker = document.getElementById('s-ticker').value.trim();
+    const reason = document.getElementById('s-reason').value.trim();
+    if (!ticker || !reason) { showToast('종목명과 매수이유를 입력해주세요'); return; }
+    saveItem('stock', { ticker, target: document.getElementById('s-target').value.trim(), reason, memo: document.getElementById('s-memo').value.trim() });
+    document.getElementById('s-ticker').value = '';
+    document.getElementById('s-target').value = '';
+    document.getElementById('s-reason').value = '';
+    document.getElementById('s-memo').value = '';
+  };
+
+  window.selectTradeType = (type) => {
+    tradeType = type;
+    document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+    if (type === '매수') document.getElementById('tag-buy').classList.add('active');
+    if (type === '매도') document.getElementById('tag-sell').classList.add('active');
+    if (type === '관망') document.getElementById('tag-watch').classList.add('active');
+  };
+  document.getElementById('tag-buy').classList.add('active');
+
+  window.saveTrade = () => {
+    const ticker = document.getElementById('t-ticker').value.trim();
+    if (!ticker) { showToast('종목명을 입력해주세요'); return; }
+    saveItem('trade', { ticker, date: document.getElementById('t-date').value, type: tradeType, price: document.getElementById('t-price').value.trim(), qty: document.getElementById('t-qty').value.trim(), reason: document.getElementById('t-reason').value.trim() });
+    document.getElementById('t-ticker').value = '';
+    document.getElementById('t-price').value = '';
+    document.getElementById('t-qty').value = '';
+    document.getElementById('t-reason').value = '';
+  };
+
+  window.saveMarket = () => {
+    const memo = document.getElementById('m-memo').value.trim();
+    if (!memo) { showToast('시황 메모를 입력해주세요'); return; }
+    saveItem('market', { date: document.getElementById('m-date').value, mood: document.getElementById('m-mood').value, memo });
+    document.getElementById('m-memo').value = '';
+  };
+
+  window.saveAnalysis = () => {
+    const title = document.getElementById('a-title').value.trim();
+    const content = document.getElementById('a-content').value.trim();
+    if (!title || !content) { showToast('제목과 내용을 입력해주세요'); return; }
+    saveItem('analysis', { title, content, ticker: document.getElementById('a-ticker').value.trim() });
+    document.getElementById('a-title').value = '';
+    document.getElementById('a-content').value = '';
+    document.getElementById('a-ticker').value = '';
+  };
+
+  window.switchTab = async (tab) => {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('view-'+tab).classList.add('active');
+    event.target.classList.add('active');
+  };
+
+  function formatDate(str) {
+    if (!str) return '';
+    const [y,m,d] = str.split('-');
+    return `${y}.${m}.${d}`;
+  }
+
+  function renderAll() {
+    // Stock
+    const sc = document.getElementById('stockList');
+    if (!data.stock.length) { sc.innerHTML = `<div class="empty-msg">종목 메모가 없어요.<br>첫 번째 종목을 기록해봐요 📝</div>`; }
+    else sc.innerHTML = data.stock.map(e => `
+      <div class="entry-card">
+        <div class="entry-header">
+          <span class="entry-ticker">${e.ticker}</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            ${e.target ? `<span style="font-size:12px;color:var(--gold);">목표 ${e.target}</span>` : ''}
+            <button class="entry-del" onclick="deleteItem('stock','${e.id}')">×</button>
+          </div>
+        </div>
+        <div class="entry-body">${e.reason}</div>
+        ${e.memo ? `<div style="margin-top:8px;font-size:12px;color:var(--text2);">${e.memo}</div>` : ''}
+      </div>`).join('');
+
+    // Trade
+    const tc = document.getElementById('tradeList');
+    if (!data.trade.length) { tc.innerHTML = `<div class="empty-msg">매매 기록이 없어요.<br>첫 번째 매매를 기록해봐요 💹</div>`; }
+    else tc.innerHTML = data.trade.map(e => `
+      <div class="entry-card">
+        <div class="entry-header">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="entry-ticker">${e.ticker}</span>
+            <span class="entry-badge ${e.type==='매수'?'badge-up':e.type==='매도'?'badge-down':'badge-neutral'}">${e.type}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="entry-date">${formatDate(e.date)}</span>
+            <button class="entry-del" onclick="deleteItem('trade','${e.id}')">×</button>
+          </div>
+        </div>
+        ${e.price || e.qty ? `<div class="entry-meta">${e.price?`<span class="entry-meta-item">가격 <span class="entry-meta-val">${e.price}</span></span>`:''}${e.qty?`<span class="entry-meta-item">수량 <span class="entry-meta-val">${e.qty}</span></span>`:''}</div>` : ''}
+        ${e.reason ? `<div class="entry-body" style="margin-top:8px;">${e.reason}</div>` : ''}
+      </div>`).join('');
+
+    // Market
+    const mc = document.getElementById('marketList');
+    if (!data.market.length) { mc.innerHTML = `<div class="empty-msg">시황 기록이 없어요.<br>오늘 시장 흐름을 적어봐요 🌐</div>`; }
+    else mc.innerHTML = data.market.map(e => `
+      <div class="entry-card">
+        <div class="entry-header">
+          <span class="entry-ticker">${formatDate(e.date)}</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="entry-badge ${e.mood==='상승'?'badge-up':e.mood==='하락'?'badge-down':'badge-neutral'}">${e.mood}</span>
+            <button class="entry-del" onclick="deleteItem('market','${e.id}')">×</button>
+          </div>
+        </div>
+        <div class="entry-body">${e.memo}</div>
+      </div>`).join('');
+
+    // Analysis
+    const ac = document.getElementById('analysisList');
+    if (!data.analysis.length) { ac.innerHTML = `<div class="empty-msg">저장된 분석이 없어요.<br>분석 내용을 저장해봐요 🔍</div>`; }
+    else ac.innerHTML = data.analysis.map(e => `
+      <div class="entry-card">
+        <div class="entry-header">
+          <span class="entry-ticker" style="font-size:14px;">${e.title}</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            ${e.ticker?`<span style="font-size:11px;color:var(--text2);">${e.ticker}</span>`:''}
+            <button class="entry-del" onclick="deleteItem('analysis','${e.id}')">×</button>
+          </div>
+        </div>
+        <div class="entry-body">${e.content}</div>
+      </div>`).join('');
+  }
+</script>
+</body>
+</html>
