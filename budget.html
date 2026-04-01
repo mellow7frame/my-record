@@ -159,20 +159,32 @@
       </div>
       <div class="row">
         <div class="row-top">
-          <div class="row-name">가게 소득</div>
+          <div class="row-name">소득 (남편)</div>
           <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="i-shop" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="i-shop-m" placeholder="메모">
       </div>
       <div class="row">
         <div class="row-top">
-          <div class="row-name">월세 소득</div>
+          <div class="row-name">소득 (나)</div>
           <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="i-rent" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
         </div>
         <input class="memo-inline" id="i-rent-m" placeholder="메모">
       </div>
-      <div id="extra-inc-rows"></div>
-      <button class="add-btn" onclick="addInc()">+ 수입 항목 추가</button>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">기타 소득 1</div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="i-etc1" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="i-etc1-m" placeholder="메모">
+      </div>
+      <div class="row">
+        <div class="row-top">
+          <div class="row-name">기타 소득 2</div>
+          <div class="row-inputs"><input class="amt" type="text" inputmode="numeric" id="i-etc2" placeholder="0" oninput="fmtAmt(this);calc()"><span class="won">원</span></div>
+        </div>
+        <input class="memo-inline" id="i-etc2-m" placeholder="메모">
+      </div>
     </div>
 
     <!-- 지출A: 식생활비 -->
@@ -434,13 +446,13 @@
 
   // 저장할 필드 목록
   const FIELDS = [
-    'i-shop','i-rent','e-food','e-wolse',
+    'i-shop','i-rent','i-etc1','i-etc2','e-food','e-wolse',
     'e-ph1','e-ph2','e-ph3','e-tv','e-nf','e-gas','e-mgmt','e-edu','e-trans','e-var1',
     'e-ins','e-fam','e-med','e-loan1','e-loan2','e-water','e-ph0',
     'e-ins1','e-ins2','e-silbi','e-samsung','e-var2'
   ];
   const MEMO_FIELDS = [
-    'i-shop-m','i-rent-m','e-food-m','e-wolse-m',
+    'i-shop-m','i-rent-m','i-etc1-m','i-etc2-m','e-food-m','e-wolse-m',
     'e-ph1-m','e-ph2-m','e-ph3-m','e-tv-m','e-nf-m','e-gas-m','e-mgmt-m','e-edu-m','e-trans-m','e-var1-m',
     'e-ins-m','e-fam-m','e-med-m','e-loan1-m','e-loan2-m','e-water-m','e-ph0-m',
     'e-ins1-m','e-ins2-m','e-silbi-m','e-samsung-m','e-var2-m','m-month'
@@ -465,7 +477,7 @@
   }
 
   window.calc = () => {
-    const income = v('i-shop') + v('i-rent') + extraInc.reduce((s,i) => s+(parseInt((document.getElementById('i-extra-'+i.id)?.value||'0').replace(/,/g,''))||0), 0);
+    const income = v('i-shop') + v('i-rent') + v('i-etc1') + v('i-etc2');
     const cardTotal = CARD_FIELDS.reduce((s,f) => s+v(f), 0);
     const aTotal = A_FIELDS.reduce((s,f) => s+v(f), 0);
     const bTotal = B_FIELDS.reduce((s,f) => s+v(f), 0);
